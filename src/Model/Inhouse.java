@@ -1,5 +1,5 @@
 
-package timsinvetorysystem;
+package Model;
 //needs to be a subclass of part with extends
 public class Inhouse  {
 

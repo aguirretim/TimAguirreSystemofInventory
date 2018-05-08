@@ -10,7 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import java.util.ArrayList;
+
 /**
  *
  * @author Tim
@@ -19,8 +19,8 @@ public class TimsInvetorySystem extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
-        
+        Parent root = FXMLLoader.load(getClass().getResource("/View_Controller/Main.fxml"));
+                      
         Scene scene = new Scene(root);
         
         stage.setScene(scene);

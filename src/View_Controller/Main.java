@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package timsinvetorysystem;
+package View_Controller;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -12,12 +12,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import Model.Product;
 
 /**
  *
  * @author Tim
  */
-public class FXMLDocumentController implements Initializable {
+public class Main implements Initializable {
     
     @FXML
     private Label label;
