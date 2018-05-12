@@ -32,7 +32,7 @@ public class Main implements Initializable {
 Product Chair = new Product(LegsSeatBack,01, "Chair",10.10,5,1,10);
         
         
-        System.out.println(Chair);
+        
         label.setText("Hello World!");
         
         
@@ -41,6 +41,8 @@ Product Chair = new Product(LegsSeatBack,01, "Chair",10.10,5,1,10);
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        
+        
     }    
     
 }

@@ -12,7 +12,7 @@ package Model;
 import java.util.ArrayList;
 
 public class Product {
-    private ArrayList Part;
+    private ArrayList <Part> associatedParts = new ArrayList<>();
     private int ProductID;
     private String Name;
     private double Price;
@@ -22,9 +22,16 @@ public class Product {
 
     /***********************************
      Constructor
+     * @param part
+     * @param productID
+     * @param name
+     * @param price
+     * @param inStock
+     * @param min
+     * @param max
      ************************************/
     public Product(ArrayList part, int productID, String name, double price, int inStock, int min, int max) {
-        Part = part;
+        associatedParts = part;
         ProductID = productID;
         Name = name;
         Price = price;
@@ -34,26 +41,36 @@ public class Product {
     }
 
 
-    public void addAssociatedPart(String part) {
-        Part.add(part);
+    public void addAssociatedPart(Part part) {
+        //associatedParts.add(part);
+        // to avoid dup.
+        if(associatedParts.indexOf(part)<0)associatedParts.add(part);
     }
 
-    public void removeAssociatedPart() {
-
+    public boolean removeAssociatedPart(int partid) {
+        boolean found = false;
+        for(Part p: this.associatedParts) {
+            if(partid==p.getPartID()) {
+                this.associatedParts.remove(p);
+                found = true;
+            }
+        }
+        return found;
     }
 
-    public void lookupAssociatedPart() {
-
+    public Part lookupAssociatedPart(int partid) {
+        for(Part p: this.associatedParts) {
+            if(partid==p.getPartID()) return p;
+        }
+        return null;
     }
 
 
 
     /***********************************
      Getters
+     * @return 
      ************************************/
-    public ArrayList getPart() {
-        return Part;
-    }
 
     public int getProductID() {
         return ProductID;
@@ -81,10 +98,8 @@ public class Product {
 
     /***********************************
      Setters
+     * @param part
      ************************************/
-    public void setPart(ArrayList part) {
-        Part = part;
-    }
 
     public void setProductID(int productID) {
         ProductID = productID;

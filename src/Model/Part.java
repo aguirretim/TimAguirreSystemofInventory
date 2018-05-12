@@ -10,7 +10,7 @@ package Model;
  * @author Tim
  */
 //abstract?
-public class Part {
+public abstract class Part {
         private int PartID;
         private String Name;
         private double Price;
@@ -30,6 +30,31 @@ public class Part {
         Min = min;
         Max = max;
         }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 97 * hash + this.PartID;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Part other = (Part) obj;
+        if (this.PartID != other.PartID) {
+            return false;
+        }
+        return true;
+    }
 
         /***********************************
          Getters and Setters

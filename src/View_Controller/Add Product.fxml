@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="1000.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/9.0.1" fx:controller="View_Controller.AddProductController">
+<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View_Controller.AddProductController">
      <children>
       <Label layoutX="45.0" layoutY="56.0" text="Add Product" textFill="NAVY">
          <font>
@@ -23,11 +23,11 @@
       <Label layoutX="180.0" layoutY="297.0" text="Min" />
       <Button layoutX="467.0" layoutY="415.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="119.0" text="Save" />
       <TextField disable="true" editable="false" layoutX="152.0" layoutY="143.0" promptText="Auto Gen - Disabled" text="Auto Gen - Disabled" />
-      <TextField layoutX="151.0" layoutY="177.0" />
-      <TextField layoutX="151.0" layoutY="215.0" />
-      <TextField layoutX="151.0" layoutY="250.0" />
-      <TextField layoutX="81.0" layoutY="293.0" prefHeight="25.0" prefWidth="83.0" />
-      <TextField layoutX="221.0" layoutY="293.0" prefHeight="25.0" prefWidth="83.0" />
+      <TextField fx:id="nameText" layoutX="151.0" layoutY="177.0" />
+      <TextField fx:id="inventory" layoutX="151.0" layoutY="215.0" />
+      <TextField fx:id="priceCost" layoutX="151.0" layoutY="250.0" />
+      <TextField fx:id="max" layoutX="81.0" layoutY="293.0" prefHeight="25.0" prefWidth="83.0" />
+      <TextField fx:id="min" layoutX="221.0" layoutY="293.0" prefHeight="25.0" prefWidth="83.0" />
       <Button layoutX="624.0" layoutY="415.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="119.0" text="Cancel" />
       <TableView layoutX="392.0" layoutY="77.0" prefHeight="104.0" prefWidth="587.0">
         <columns>
@@ -54,6 +54,6 @@
       <TextField layoutX="813.0" layoutY="31.0" />
       <Button layoutX="743.0" layoutY="31.0" mnemonicParsing="false" text="Search" />
       <Button layoutX="843.0" layoutY="367.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="119.0" text="Delete" />
-      <Button layoutX="843.0" layoutY="188.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="119.0" text="Add" />
+      <Button layoutX="843.0" layoutY="188.0" mnemonicParsing="false" onAction="#addProduct" prefHeight="57.0" prefWidth="119.0" text="Add" />
    </children>
 </AnchorPane>

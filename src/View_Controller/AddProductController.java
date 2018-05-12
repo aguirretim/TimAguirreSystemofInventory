@@ -7,7 +7,10 @@ package View_Controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.TextField;
 
 /**
  * FXML Controller class
@@ -15,7 +18,18 @@ import javafx.fxml.Initializable;
  * @author Tim
  */
 public class AddProductController implements Initializable {
-
+    // FXML bindings
+    @FXML TextField nameText;
+   
+    
+    
+    
+    @FXML
+    public void addProduct(ActionEvent event){
+        String name = nameText.getText();
+    }
+    
+    
     /**
      * Initializes the controller class.
      */
