@@ -9,7 +9,7 @@ package Model;
  *
  * @author Tim
  */
-//abstract?
+
 public abstract class Part {
         private int PartID;
         private String Name;

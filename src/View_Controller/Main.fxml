@@ -8,20 +8,20 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="406.0" prefWidth="951.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/9.0.1" fx:controller="View_Controller.Main">
+<AnchorPane id="AnchorPane" prefHeight="406.0" prefWidth="951.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View_Controller.Main">
     <children>
         <Button fx:id="button" layoutX="451.0" layoutY="331.0" onAction="#handleButtonAction" text="Click Me!" />
         <Label fx:id="label" layoutX="449.0" layoutY="368.0" minHeight="16" minWidth="69" />
-      <Button layoutX="256.0" layoutY="288.0" mnemonicParsing="false" text="Add" />
-      <Button layoutX="308.0" layoutY="288.0" mnemonicParsing="false" text="Modify" />
-      <Button layoutX="370.0" layoutY="288.0" mnemonicParsing="false" text="Edit" />
-      <Button layoutX="692.0" layoutY="288.0" mnemonicParsing="false" text="Add" />
-      <Button layoutX="744.0" layoutY="288.0" mnemonicParsing="false" text="Modify" />
-      <Button layoutX="806.0" layoutY="288.0" mnemonicParsing="false" text="Edit" />
-      <TextField layoutX="754.0" layoutY="156.0" />
-      <Button layoutX="693.0" layoutY="156.0" mnemonicParsing="false" text="Search" />
-      <TextField layoutX="318.0" layoutY="156.0" />
-      <Button layoutX="257.0" layoutY="156.0" mnemonicParsing="false" text="Search" />
+      <Button fx:id="partsAddButton" layoutX="256.0" layoutY="288.0" mnemonicParsing="false" text="Add" />
+      <Button fx:id="partsModifyButton" layoutX="308.0" layoutY="288.0" mnemonicParsing="false" text="Modify" />
+      <Button fx:id="partsEditButton" layoutX="370.0" layoutY="288.0" mnemonicParsing="false" text="Edit" />
+      <Button fx:id="productsAddButton" layoutX="692.0" layoutY="288.0" mnemonicParsing="false" text="Add" />
+      <Button fx:id="productsModifyButton" layoutX="744.0" layoutY="288.0" mnemonicParsing="false" text="Modify" />
+      <Button fx:id="productsEditButton" layoutX="806.0" layoutY="288.0" mnemonicParsing="false" text="Edit" />
+      <TextField fx:id="productsSearchText" layoutX="754.0" layoutY="156.0" />
+      <Button fx:id="productsSearchButton" layoutX="693.0" layoutY="156.0" mnemonicParsing="false" text="Search" />
+      <TextField fx:id="partsSearchtext" layoutX="318.0" layoutY="156.0" />
+      <Button fx:id="partsSearchButton" layoutX="257.0" layoutY="156.0" mnemonicParsing="false" text="Search" />
       <Label layoutX="51.0" layoutY="73.0" text="Inventory Managment system" textFill="NAVY">
          <font>
             <Font size="22.0" />
@@ -49,7 +49,7 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <Button layoutX="870.0" layoutY="358.0" mnemonicParsing="false" text="Exit" />
+      <Button fx:id="exitButton" layoutX="870.0" layoutY="358.0" mnemonicParsing="false" text="Exit" />
       <Label layoutX="51.0" layoutY="153.0" text="Parts">
          <font>
             <Font size="18.0" />
