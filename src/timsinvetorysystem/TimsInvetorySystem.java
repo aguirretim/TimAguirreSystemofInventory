@@ -15,6 +15,8 @@ import javafx.stage.Stage;
  *
  * @author Tim
  */
+
+
 public class TimsInvetorySystem extends Application {
     
     @Override
