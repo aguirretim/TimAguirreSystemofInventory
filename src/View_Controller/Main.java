@@ -35,43 +35,13 @@ public class Main implements Initializable {
     private Button partsAddButton;
     @FXML
     private Button cancelButton;
-    
-    
-    
     @FXML
-    private void handleButtonAction(ActionEvent event) throws IOException {
-        Stage stage;
-        Parent root;
-        
-        if(event.getSource()==partsAddButton){
-        //Get refrence to the buttons stage
-        stage=(Stage) partsAddButton.getScene().getWindow();
-        // Load up other FXML document
-         root = FXMLLoader.load(getClass().getResource("/View_Controller/AddInhouse.fxml"));
-               
-        }
-        
-        else
-            stage=(Stage) cancelButton.getScene().getWindow();
-            root = FXMLLoader.load(getClass().getResource("/View_Controller/Main.fxml"));
-        //Create a new scene with roo and set the stage
-           Scene scene = new Scene(root);
-           stage.setScene(scene);
-           stage.show();
-           
-     System.out.println(event.getSource());
-        
-        ArrayList<Integer> LegsSeatBack= new ArrayList<Integer>();
-                            
-Product Chair = new Product(LegsSeatBack,01, "Chair",10.10,5,1,10);
-        
-        
-        
-        label.setText("event.getSource()");
-        
-        
-    }
-     
+    private Button partsModifyButton;
+    @FXML
+    private Button productsAddButton;
+    @FXML
+    private Button productsModifyButton;
+ 
     @FXML
     private void partsAddButtonAction(ActionEvent event) throws IOException {
           Stage stage;
@@ -82,14 +52,12 @@ Product Chair = new Product(LegsSeatBack,01, "Chair",10.10,5,1,10);
            Scene scene = new Scene(root);
            stage.setScene(scene);
            stage.show();}
-     
-     
-            
+             
     @FXML
     private void partsModifyButtonAction(ActionEvent event) throws IOException {
           Stage stage;
           Parent root;
-          stage=(Stage) partsAddButton.getScene().getWindow();
+          stage=(Stage) partsModifyButton.getScene().getWindow();
           root = FXMLLoader.load(getClass().getResource("/View_Controller/ModifyInhouse.fxml"));
         //Create a new scene with roo and set the stage
            Scene scene = new Scene(root);
@@ -100,8 +68,8 @@ Product Chair = new Product(LegsSeatBack,01, "Chair",10.10,5,1,10);
     private void productAddButtonAction(ActionEvent event) throws IOException {
           Stage stage;
           Parent root;
-          stage=(Stage) partsAddButton.getScene().getWindow();
-          root = FXMLLoader.load(getClass().getResource("/View_Controller/Add Product.fxml"));
+          stage=(Stage) productsAddButton.getScene().getWindow();
+          root =  FXMLLoader.load(getClass().getResource("/View_Controller/AddProduct.fxml"));
         //Create a new scene with roo and set the stage
            Scene scene = new Scene(root);
            stage.setScene(scene);
@@ -111,28 +79,18 @@ Product Chair = new Product(LegsSeatBack,01, "Chair",10.10,5,1,10);
     private void productModifyButtonAction(ActionEvent event) throws IOException {
           Stage stage;
           Parent root;
-          stage=(Stage) partsAddButton.getScene().getWindow();
+          stage=(Stage) productsModifyButton.getScene().getWindow();
           root = FXMLLoader.load(getClass().getResource("/View_Controller/ModifyProduct.fxml"));
         //Create a new scene with roo and set the stage
            Scene scene = new Scene(root);
            stage.setScene(scene);
            stage.show();}
-    @FXML
-    private void cancelButtonAction(ActionEvent event) throws IOException {
-          Stage stage;
-          Parent root;
-          stage=(Stage) cancelButton.getScene().getWindow();
-          root = FXMLLoader.load(getClass().getResource("/View_Controller/Main.fxml"));
-        //Create a new scene with roo and set the stage
-           Scene scene = new Scene(root);
-           stage.setScene(scene);
-           stage.show();}
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         
         
     }    
-    
 }
+

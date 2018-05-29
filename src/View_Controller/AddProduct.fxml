@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
@@ -54,6 +58,6 @@
       <TextField fx:id="searchText" layoutX="813.0" layoutY="31.0" />
       <Button layoutX="743.0" layoutY="31.0" mnemonicParsing="false" text="Search" />
       <Button fx:id="deleteButton" layoutX="843.0" layoutY="367.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="119.0" text="Delete" />
-      <Button fx:id="addButton" layoutX="843.0" layoutY="188.0" mnemonicParsing="false" onAction="#addProduct" prefHeight="57.0" prefWidth="119.0" text="Add" />
+      <Button fx:id="addButton" layoutX="843.0" layoutY="188.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="119.0" text="Add" />
    </children>
 </AnchorPane>

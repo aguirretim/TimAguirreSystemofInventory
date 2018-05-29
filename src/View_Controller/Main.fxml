@@ -10,13 +10,12 @@
 
 <AnchorPane id="AnchorPane" prefHeight="406.0" prefWidth="951.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View_Controller.Main">
     <children>
-        <Button fx:id="button" layoutX="451.0" layoutY="331.0" text="Click Me!" />
         <Label fx:id="label" layoutX="449.0" layoutY="368.0" minHeight="16" minWidth="69" />
       <Button fx:id="partsAddButton" layoutX="256.0" layoutY="288.0" mnemonicParsing="false" onAction="#partsAddButtonAction" text="Add" />
       <Button fx:id="partsModifyButton" layoutX="308.0" layoutY="288.0" mnemonicParsing="false" onAction="#partsModifyButtonAction" text="Modify" />
       <Button fx:id="partsEditButton" layoutX="370.0" layoutY="288.0" mnemonicParsing="false" text="Edit" />
       <Button fx:id="productsAddButton" layoutX="692.0" layoutY="288.0" mnemonicParsing="false" onAction="#productAddButtonAction" text="Add" />
-      <Button fx:id="productsModifyButton" layoutX="744.0" layoutY="288.0" mnemonicParsing="false" onAction="#productModifyButtonAction" text="Modify" />
+     <Button fx:id="productsModifyButton" layoutX="744.0" layoutY="288.0" mnemonicParsing="false" onAction="#productModifyButtonAction" text="Modify" />
       <Button fx:id="productsEditButton" layoutX="806.0" layoutY="288.0" mnemonicParsing="false" text="Edit" />
       <TextField fx:id="productsSearchText" layoutX="754.0" layoutY="156.0" />
       <Button fx:id="productsSearchButton" layoutX="693.0" layoutY="156.0" mnemonicParsing="false" text="Search" />
