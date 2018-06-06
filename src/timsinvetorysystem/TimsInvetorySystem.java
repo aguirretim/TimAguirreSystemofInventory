@@ -5,6 +5,8 @@
  */
 package timsinvetorysystem;
 
+import Model.Inhouse;
+import Model.Inventory;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -33,11 +35,14 @@ public class TimsInvetorySystem extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+    Inventory initInventory = new Inventory();
+        initInventory.addPart(new Inhouse(111, 0, "tire", 9.99, 50,1, 100));
+        initInventory.addPart(new Inhouse(222, 1, "screws", .50, 100,1, 100));
         launch(args);
     
         
 
-System.out.println("Chair");
+
 
 
     }

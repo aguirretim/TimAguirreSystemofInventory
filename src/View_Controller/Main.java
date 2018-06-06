@@ -5,6 +5,8 @@
  */
 package View_Controller;
 
+import Model.Inventory;
+import Model.Part;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -14,10 +16,15 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import Model.Product;
 import java.io.IOException;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 
@@ -41,7 +48,18 @@ public class Main implements Initializable {
     private Button productsAddButton;
     @FXML
     private Button productsModifyButton;
- 
+
+    @FXML
+    private TableView<Part> partTable;
+    @FXML
+    private TableColumn<Part,Integer> partIdCol;
+    @FXML
+    private TableColumn<Part,String> partNameCol;
+    @FXML
+    private TableColumn<Part,Integer> partInventoryCol;
+    @FXML
+    private TableColumn<Part,Double> partPriceCol;
+    
     @FXML
     private void partsAddButtonAction(ActionEvent event) throws IOException {
           Stage stage;
@@ -91,6 +109,21 @@ public class Main implements Initializable {
         // TODO
         
         
+       Inventory starter = new Inventory();
+       
+       ArrayList<Part> startingParts = new ArrayList<>();
+       
+       startingParts.add(starter.lookupPart(0));
+       startingParts.add(starter.lookupPart(1));
+       
+       ObservableList<Part> starterPartsOl = FXCollections.observableArrayList(startingParts);
+       
+       partTable.setItems(starterPartsOl);
+       partIdCol.setCellValueFactory(new PropertyValueFactory<>("PartID"));
+       partNameCol.setCellValueFactory(new PropertyValueFactory<>("Name"));
+       partInventoryCol.setCellValueFactory(new PropertyValueFactory<>("InStock"));
+       partPriceCol.setCellValueFactory(new PropertyValueFactory<>("Price"));
+       
     }    
 }
 

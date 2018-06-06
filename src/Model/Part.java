@@ -18,18 +18,6 @@ public abstract class Part {
         private int Min;
         private int Max;
 
-        /***********************************
-        Constructor
-        ************************************/
-
-        public Part(int partID, String name, double price, int inStock, int min, int max) {
-        PartID = partID;
-        Name = name;
-        Price = price;
-        InStock = inStock;
-        Min = min;
-        Max = max;
-        }
 
     @Override
     public int hashCode() {

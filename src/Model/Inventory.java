@@ -9,21 +9,22 @@ package Model;
  *
  * @author Tim
  */
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Inventory {
-    private final Map <Integer,Product> products = new HashMap <> ();
-    private final Map <Integer, Part> allPart = new HashMap <> ();
+    private static ArrayList<Part> allParts = new ArrayList<>(); 
+    private static ArrayList<Product> products = new ArrayList<>(); 
     private static int partCounter = 0;
-    private static int productCounter=0;
+    //private static int productCounter=0p
     
     private synchronized int getNewPartId(){
         return partCounter++;
     }
     
     private synchronized int getNewProductId(){
-        return productCounter++;
+       return 3;
     }
     
     public void addProduct(Product product) {
@@ -33,7 +34,7 @@ public class Inventory {
         // the easy way
         Product p = product;
         p.setProductID(getNewProductId());
-        products.put(p.getProductID(), p);   
+        //products.put(p.getProductID(), p);   
     }
 
     public boolean removeProduct(int productID) {
@@ -52,26 +53,24 @@ public class Inventory {
     }
     
     public void updateProduct(Product product) {
-        products.put(product.getProductID(), product);
+        //products.put(product.getProductID(), product);
     }
     
     public void addPart(Part part) {
-        Part p = part;
-        p.setPartID(getNewPartId());
-        this.allPart.put(p.getPartID(), p);   
+       allParts.add(part);
     }
     
     public boolean deletePart(int partID) {
-        Part found = allPart.remove(partID);
-        return (found!=null);
+       // Part found = allPart.remove(partID);
+        return (false);
     }
     
     public Part lookupPart(int partID) {
-        return allPart.get(partID);
+        return allParts.get(partID);
     }
     
     public void updatePart(Part part) {
-        allPart.put(part.getPartID(), part);
+        //allPart.put(part.getPartID(), part);
     }
     
     
