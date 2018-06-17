@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View_Controller.AddModifyOutsourcedController">
+<AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View_Controller.AddOutsourcedController">
    <children>
       <Label layoutX="82.0" layoutY="78.0" text="Add Part" textFill="NAVY">
          <font>
@@ -30,7 +30,7 @@
       <TextField fx:id="minText" layoutX="278.0" layoutY="476.0" prefHeight="25.0" prefWidth="83.0" />
       <TextField fx:id="companynameText" layoutX="211.0" layoutY="558.0" />
       <Button fx:id="cancelButton" layoutX="273.0" layoutY="645.0" mnemonicParsing="false" onAction="#cancelButtonAction" prefHeight="57.0" prefWidth="119.0" text="Cancel" />
-      <RadioButton fx:id="outsourcedToggle" layoutX="333.0" layoutY="86.0" mnemonicParsing="false" selected="true" text="Outsourced" />
-      <RadioButton fx:id="inhouseToggle" layoutX="215.0" layoutY="86.0" mnemonicParsing="false" text="In-House" />
+      <RadioButton fx:id="outsourcedRadioButton" layoutX="333.0" layoutY="86.0" mnemonicParsing="false" onAction="#outsourcedButtonAction" selected="true" text="Outsourced" />
+      <RadioButton fx:id="inHouseButton" layoutX="215.0" layoutY="86.0" mnemonicParsing="false" onAction="#inHouseButtonAction" text="In-House" />
    </children>
 </AnchorPane>

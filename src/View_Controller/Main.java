@@ -28,8 +28,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 
-
-
 /**
  *
  * @author Tim
@@ -115,6 +113,8 @@ public class Main implements Initializable {
        
        startingParts.add(starter.lookupPart(0));
        startingParts.add(starter.lookupPart(1));
+       startingParts.add(starter.lookupPart(2));
+       startingParts.add(starter.lookupPart(3));
        
        ObservableList<Part> starterPartsOl = FXCollections.observableArrayList(startingParts);
        

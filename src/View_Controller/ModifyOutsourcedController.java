@@ -15,6 +15,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.RadioButton;
 import javafx.stage.Stage;
 
 /**
@@ -26,6 +27,36 @@ public class ModifyOutsourcedController implements Initializable {
 
         @FXML
     private Button cancelButton;
+    
+        
+    @FXML
+    private RadioButton inHouseButton;
+    
+        @FXML
+    private RadioButton outsourcedRadioButton;
+    
+        @FXML
+    private void inHouseButtonAction(ActionEvent event) throws IOException {
+          Stage stage;
+          Parent root;
+          stage=(Stage) inHouseButton.getScene().getWindow();
+          root = FXMLLoader.load(getClass().getResource("/View_Controller/ModifyInhouse.fxml"));
+        //Create a new scene with roo and set the stage
+           Scene scene = new Scene(root);
+           stage.setScene(scene);
+           stage.show();}
+
+    
+        @FXML
+    private void outsourcedButtonAction(ActionEvent event) throws IOException {
+          Stage stage;
+          Parent root;
+          stage=(Stage) outsourcedRadioButton.getScene().getWindow();
+          root = FXMLLoader.load(getClass().getResource("/View_Controller/ModifyOutsourced.fxml"));
+        //Create a new scene with roo and set the stage
+           Scene scene = new Scene(root);
+           stage.setScene(scene);
+           stage.show();}
     
     @FXML
     private void cancelButtonAction(ActionEvent event) throws IOException {
