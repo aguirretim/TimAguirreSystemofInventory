@@ -33,7 +33,15 @@ import javafx.stage.Stage;
  * @author Tim
  */
 public class Main implements Initializable {
-    
+
+
+
+    /***********************************
+     Variables for Buttons and Field.
+     ************************************/
+
+
+
     @FXML
     private Label label;
     @FXML
@@ -46,84 +54,104 @@ public class Main implements Initializable {
     private Button productsAddButton;
     @FXML
     private Button productsModifyButton;
+    @FXML
+    private TableView < Part > partTable;
+    @FXML
+    private TableColumn < Part, Integer > partIdCol;
+    @FXML
+    private TableColumn < Part, String > partNameCol;
+    @FXML
+    private TableColumn < Part, Integer > partInventoryCol;
+    @FXML
+    private TableColumn < Part, Double > partPriceCol;
 
-    @FXML
-    private TableView<Part> partTable;
-    @FXML
-    private TableColumn<Part,Integer> partIdCol;
-    @FXML
-    private TableColumn<Part,String> partNameCol;
-    @FXML
-    private TableColumn<Part,Integer> partInventoryCol;
-    @FXML
-    private TableColumn<Part,Double> partPriceCol;
-    
+
+
+    /***********************************
+    Changing screens and scenes with buttons.
+    ************************************/
+
+
+
     @FXML
     private void partsAddButtonAction(ActionEvent event) throws IOException {
-          Stage stage;
-          Parent root;
-          stage=(Stage) partsAddButton.getScene().getWindow();
-          root = FXMLLoader.load(getClass().getResource("/View_Controller/AddInhouse.fxml"));
+        Stage stage;
+        Parent root;
+        stage = (Stage) partsAddButton.getScene().getWindow();
+        root = FXMLLoader.load(getClass().getResource("/View_Controller/AddInhouse.fxml"));
         //Create a new scene with roo and set the stage
-           Scene scene = new Scene(root);
-           stage.setScene(scene);
-           stage.show();}
-             
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
     @FXML
     private void partsModifyButtonAction(ActionEvent event) throws IOException {
-          Stage stage;
-          Parent root;
-          stage=(Stage) partsModifyButton.getScene().getWindow();
-          root = FXMLLoader.load(getClass().getResource("/View_Controller/ModifyInhouse.fxml"));
+        Stage stage;
+        Parent root;
+        stage = (Stage) partsModifyButton.getScene().getWindow();
+        root = FXMLLoader.load(getClass().getResource("/View_Controller/ModifyInhouse.fxml"));
         //Create a new scene with roo and set the stage
-           Scene scene = new Scene(root);
-           stage.setScene(scene);
-           stage.show();}
-    
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
     @FXML
     private void productAddButtonAction(ActionEvent event) throws IOException {
-          Stage stage;
-          Parent root;
-          stage=(Stage) productsAddButton.getScene().getWindow();
-          root =  FXMLLoader.load(getClass().getResource("/View_Controller/AddProduct.fxml"));
+        Stage stage;
+        Parent root;
+        stage = (Stage) productsAddButton.getScene().getWindow();
+        root = FXMLLoader.load(getClass().getResource("/View_Controller/AddProduct.fxml"));
         //Create a new scene with roo and set the stage
-           Scene scene = new Scene(root);
-           stage.setScene(scene);
-           stage.show();}
-            
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
     @FXML
     private void productModifyButtonAction(ActionEvent event) throws IOException {
-          Stage stage;
-          Parent root;
-          stage=(Stage) productsModifyButton.getScene().getWindow();
-          root = FXMLLoader.load(getClass().getResource("/View_Controller/ModifyProduct.fxml"));
+        Stage stage;
+        Parent root;
+        stage = (Stage) productsModifyButton.getScene().getWindow();
+        root = FXMLLoader.load(getClass().getResource("/View_Controller/ModifyProduct.fxml"));
         //Create a new scene with roo and set the stage
-           Scene scene = new Scene(root);
-           stage.setScene(scene);
-           stage.show();}
-
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+    @FXML
+    private void exitButtonAction(ActionEvent event) throws IOException {
+    System.exit(0);
+    }
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-        
-        
-       Inventory starter = new Inventory();
-       
-       ArrayList<Part> startingParts = new ArrayList<>();
-       
-       startingParts.add(starter.lookupPart(0));
-       startingParts.add(starter.lookupPart(1));
-       startingParts.add(starter.lookupPart(2));
-       startingParts.add(starter.lookupPart(3));
-       
-       ObservableList<Part> starterPartsOl = FXCollections.observableArrayList(startingParts);
-       
-       partTable.setItems(starterPartsOl);
-       partIdCol.setCellValueFactory(new PropertyValueFactory<>("PartID"));
-       partNameCol.setCellValueFactory(new PropertyValueFactory<>("Name"));
-       partInventoryCol.setCellValueFactory(new PropertyValueFactory<>("InStock"));
-       partPriceCol.setCellValueFactory(new PropertyValueFactory<>("Price"));
-       
-    }    
-}
 
+
+
+        /***********************************
+        Creating objects from classes to display in table. 
+        ************************************/
+
+
+
+        Inventory starter = new Inventory();
+
+        ArrayList < Part > startingParts = new ArrayList < > ();
+
+        startingParts.add(starter.lookupPart(0));
+        startingParts.add(starter.lookupPart(1));
+        startingParts.add(starter.lookupPart(2));
+        startingParts.add(starter.lookupPart(3));
+
+        ObservableList < Part > starterPartsOl = FXCollections.observableArrayList(startingParts);
+
+        partTable.setItems(starterPartsOl);
+        partIdCol.setCellValueFactory(new PropertyValueFactory < > ("PartID"));
+        partNameCol.setCellValueFactory(new PropertyValueFactory < > ("Name"));
+        partInventoryCol.setCellValueFactory(new PropertyValueFactory < > ("InStock"));
+        partPriceCol.setCellValueFactory(new PropertyValueFactory < > ("Price"));
+
+    }
+}

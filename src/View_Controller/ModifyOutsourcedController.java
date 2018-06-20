@@ -25,17 +25,16 @@ import javafx.stage.Stage;
  */
 public class ModifyOutsourcedController implements Initializable {
 
-        @FXML
+    @FXML
     private Button cancelButton;
-    
         
     @FXML
     private RadioButton inHouseButton;
     
-        @FXML
+    @FXML
     private RadioButton outsourcedRadioButton;
     
-        @FXML
+    @FXML
     private void inHouseButtonAction(ActionEvent event) throws IOException {
           Stage stage;
           Parent root;
@@ -47,7 +46,7 @@ public class ModifyOutsourcedController implements Initializable {
            stage.show();}
 
     
-        @FXML
+    @FXML
     private void outsourcedButtonAction(ActionEvent event) throws IOException {
           Stage stage;
           Parent root;

@@ -16,6 +16,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 /**
@@ -24,55 +25,85 @@ import javafx.stage.Stage;
  * @author Tim
  */
 public class AddOutsourcedController implements Initializable {
-    @FXML
-    private Button cancelButton;
-            
-    @FXML
-    private RadioButton outsourcedRadioButton;
-    
-    @FXML
-    private RadioButton inHouseButton;
-    
-        
-        @FXML
-    private void inHouseButtonAction(ActionEvent event) throws IOException {
-          Stage stage;
-          Parent root;
-          stage=(Stage) inHouseButton.getScene().getWindow();
-          root = FXMLLoader.load(getClass().getResource("/View_Controller/AddInhouse.fxml"));
-        //Create a new scene with roo and set the stage
-           Scene scene = new Scene(root);
-           stage.setScene(scene);
-           stage.show();}
+
 
     
-        @FXML
-    private void outsourcedButtonAction(ActionEvent event) throws IOException {
-          Stage stage;
-          Parent root;
-          stage=(Stage) outsourcedRadioButton.getScene().getWindow();
-          root = FXMLLoader.load(getClass().getResource("/View_Controller/AddOutsourced.fxml"));
-        //Create a new scene with roo and set the stage
-           Scene scene = new Scene(root);
-           stage.setScene(scene);
-           stage.show();}
+ /***********************************
+ Variables for Buttons and Field.
+ ************************************/
+
     
-    @FXML
-    private void cancelButtonAction(ActionEvent event) throws IOException {
-        Stage stage;
-        Parent root;
-        stage=(Stage) cancelButton.getScene().getWindow();
-        root = FXMLLoader.load(getClass().getResource("/View_Controller/Main.fxml"));
-        //Create a new scene with roo and set the stage
-           Scene scene = new Scene(root);
-           stage.setScene(scene);
-           stage.show();}
-    /**
-     * Initializes the controller class.
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
     
+ @FXML
+ private Button cancelButton;
+ @FXML
+ private RadioButton outsourcedRadioButton;
+ @FXML
+ private RadioButton inHouseButton;
+ @FXML
+ private TextField nameText;
+ @FXML
+ private TextField invText;
+ @FXML
+ private TextField pricecostText;
+ @FXML
+ private TextField maxText;
+ @FXML
+ private TextField minText;
+ @FXML
+ private TextField machineidText;
+
+
+
+
+ /***********************************
+ Changing screens and scenes with buttons.
+ ************************************/
+
+
+
+ @FXML
+ private void inHouseButtonAction(ActionEvent event) throws IOException {
+  Stage stage;
+  Parent root;
+  stage = (Stage) inHouseButton.getScene().getWindow();
+  root = FXMLLoader.load(getClass().getResource("/View_Controller/AddInhouse.fxml"));
+  //Create a new scene with roo and set the stage
+  Scene scene = new Scene(root);
+  stage.setScene(scene);
+  stage.show();
+ }
+
+ @FXML
+ private void outsourcedButtonAction(ActionEvent event) throws IOException {
+  Stage stage;
+  Parent root;
+  stage = (Stage) outsourcedRadioButton.getScene().getWindow();
+  root = FXMLLoader.load(getClass().getResource("/View_Controller/AddOutsourced.fxml"));
+  //Create a new scene with roo and set the stage
+  Scene scene = new Scene(root);
+  stage.setScene(scene);
+  stage.show();
+ }
+
+ @FXML
+ private void cancelButtonAction(ActionEvent event) throws IOException {
+   Stage stage;
+   Parent root;
+   stage = (Stage) cancelButton.getScene().getWindow();
+   root = FXMLLoader.load(getClass().getResource("/View_Controller/Main.fxml"));
+   //Create a new scene with roo and set the stage
+   Scene scene = new Scene(root);
+   stage.setScene(scene);
+   stage.show();
+  }
+ 
+  /**
+   * Initializes the controller class.
+   */
+ @Override
+ public void initialize(URL url, ResourceBundle rb) {
+  // TODO
+ }
+
 }

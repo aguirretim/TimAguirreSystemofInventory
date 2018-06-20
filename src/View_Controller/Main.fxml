@@ -37,7 +37,7 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <Button fx:id="exitButton" layoutX="870.0" layoutY="358.0" mnemonicParsing="false" text="Exit" />
+      <Button fx:id="exitButton" layoutX="870.0" layoutY="358.0" mnemonicParsing="false" onAction="#exitButtonAction" text="Exit" />
       <Label layoutX="51.0" layoutY="153.0" text="Parts">
          <font>
             <Font size="18.0" />
