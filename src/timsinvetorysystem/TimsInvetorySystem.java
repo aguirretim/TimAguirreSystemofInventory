@@ -37,11 +37,11 @@ public class TimsInvetorySystem extends Application {
      */
     public static void main(String[] args) {
     Inventory initInventory = new Inventory();
-        initInventory.addPart(new Inhouse(111, 0, "tire", 9.99, 50,1, 100));
+        /*initInventory.addPart(new Inhouse(111, 0, "tire", 9.99, 50,1, 100));
         initInventory.addPart(new Inhouse(222, 1, "screws", .50, 100,1, 100));
         initInventory.addPart(new Outsourced("TimCompany",333, 2, "Frame", 1.50, 40,1, 100));
         initInventory.addPart(new Outsourced("BOBCompany",444, 3, "Metalic Screen", .75, 20,1, 100));
-       
+       */
      
         launch(args);
     

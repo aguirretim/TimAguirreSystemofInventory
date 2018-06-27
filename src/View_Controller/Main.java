@@ -17,6 +17,7 @@ import javafx.scene.control.Label;
 import Model.Product;
 import java.io.IOException;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -32,8 +33,9 @@ import javafx.stage.Stage;
  *
  * @author Tim
  */
-public class Main implements Initializable {
+public class Main implements Initializable, AddInhouseController.PartAdder {
 
+    ObservableList < Part > partList;
 
 
     /***********************************
@@ -77,8 +79,21 @@ public class Main implements Initializable {
     private void partsAddButtonAction(ActionEvent event) throws IOException {
         Stage stage;
         Parent root;
+        
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(
+                getClass().getResource(
+                        "/View_Controller/AddInhouse.fxml"
+                )
+        );
+        root = loader.load();
+        
+        AddInhouseController controller = 
+                loader.<AddInhouseController>getController();
+        
+        controller.setPartAdder(this);
         stage = (Stage) partsAddButton.getScene().getWindow();
-        root = FXMLLoader.load(getClass().getResource("/View_Controller/AddInhouse.fxml"));
+        
         //Create a new scene with roo and set the stage
         Scene scene = new Scene(root);
         stage.setScene(scene);
@@ -89,6 +104,10 @@ public class Main implements Initializable {
     private void partsModifyButtonAction(ActionEvent event) throws IOException {
         Stage stage;
         Parent root;
+        
+        Part selectedPart = 
+                this.partTable.getSelectionModel().getSelectedItem();
+        
         stage = (Stage) partsModifyButton.getScene().getWindow();
         root = FXMLLoader.load(getClass().getResource("/View_Controller/ModifyInhouse.fxml"));
         //Create a new scene with roo and set the stage
@@ -139,19 +158,30 @@ public class Main implements Initializable {
         Inventory starter = new Inventory();
 
         ArrayList < Part > startingParts = new ArrayList < > ();
+        
+        startingParts.addAll(Inventory.getParts());
 
-        startingParts.add(starter.lookupPart(0));
+        /*startingParts.add(starter.lookupPart(0));
         startingParts.add(starter.lookupPart(1));
         startingParts.add(starter.lookupPart(2));
-        startingParts.add(starter.lookupPart(3));
+        startingParts.add(starter.lookupPart(3));*/
 
-        ObservableList < Part > starterPartsOl = FXCollections.observableArrayList(startingParts);
+        partList = FXCollections.observableArrayList(startingParts);
 
-        partTable.setItems(starterPartsOl);
+        partTable.setItems(this.partList);
         partIdCol.setCellValueFactory(new PropertyValueFactory < > ("PartID"));
         partNameCol.setCellValueFactory(new PropertyValueFactory < > ("Name"));
         partInventoryCol.setCellValueFactory(new PropertyValueFactory < > ("InStock"));
         partPriceCol.setCellValueFactory(new PropertyValueFactory < > ("Price"));
-
+        
+    }
+    //Adding to the visible table.
+    @Override
+    public void addPart(Part p) {
+        //this.partList.addAll(p);
+        
+        Inventory inv = new Inventory();
+        inv.addPart(p);
+        //this.partTable.refresh();
     }
 }

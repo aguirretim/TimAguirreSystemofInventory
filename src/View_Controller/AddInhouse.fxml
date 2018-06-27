@@ -22,7 +22,7 @@
       <Label layoutX="96.0" layoutY="480.0" text="Max " />
       <Label layoutX="237.0" layoutY="480.0" text="Min" />
       <Label layoutX="92.0" layoutY="562.0" text="Machine ID" />
-      <Button fx:id="saveButton" layoutX="108.0" layoutY="645.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="119.0" text="Save" />
+      <Button fx:id="saveButton" layoutX="108.0" layoutY="645.0" mnemonicParsing="false" onAction="#saveButtonAction" prefHeight="57.0" prefWidth="119.0" text="Save" />
       <TextField disable="true" editable="false" layoutX="208.0" layoutY="182.0" promptText="Auto Gen - Disabled" text="Auto Gen - Disabled" />
       <TextField fx:id="invText" layoutX="208.0" layoutY="315.0" />
       <TextField fx:id="pricecostText" layoutX="208.0" layoutY="400.0" />

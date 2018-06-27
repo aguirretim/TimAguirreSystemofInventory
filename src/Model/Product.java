@@ -40,6 +40,20 @@ public class Product {
         Max = max;
     }
 
+    /***********************************
+     Constructor
+     * @param other
+     ************************************/
+    public Product(Product other) {
+        associatedParts = other.associatedParts;
+        ProductID = other.ProductID;
+        Name = other.Name;
+        Price = other.Price;
+        InStock = other.InStock;
+        Min = other.Min;
+        Max = other.Max;
+    }
+
 
     public void addAssociatedPart(Part part) {
         //associatedParts.add(part);

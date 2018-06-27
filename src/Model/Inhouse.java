@@ -7,15 +7,19 @@ public class Inhouse extends Part {
     /***********************************
      Constructor
      ************************************/
-    public Inhouse(int MachineID, int partID, String name, double price, int inStock,int min, int max) {
+    public Inhouse(int MachineID, 
+            int partID, String name, double price, int inStock,
+            int min, int max) {
+        
         this.MachineID = MachineID;
-        setPartID(++partID);
+        setPartID(partID);
         setName(name);
         setPrice(price);
         setInStock(inStock);
         setMin(min);
         setMax(max);
     }
+    
 
     /***********************************
      Getters and Setters

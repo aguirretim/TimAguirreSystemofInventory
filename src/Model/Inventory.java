@@ -10,6 +10,8 @@ package Model;
  * @author Tim
  */
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -57,6 +59,7 @@ public class Inventory {
     }
     
     public void addPart(Part part) {
+        part.setPartID(this.getNewPartId());
        allParts.add(part);
     }
     
@@ -73,7 +76,9 @@ public class Inventory {
         //allPart.put(part.getPartID(), part);
     }
     
-    
+    public static Collection<Part> getParts() {
+        return Collections.unmodifiableCollection(allParts);
+    }
     
     
 }
