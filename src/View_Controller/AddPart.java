@@ -5,7 +5,11 @@
  */
 package View_Controller;
 
+import Model.Inhouse;
+import Model.Inventory;
+import Model.Part;
 import java.io.IOException;
+import static java.lang.Double.parseDouble;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -15,6 +19,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -24,18 +29,18 @@ import javafx.stage.Stage;
  *
  * @author Tim
  */
-public class AddOutsourcedController implements Initializable {
-
-
-    
+public class AddPart implements Initializable {
+  
  /***********************************
  Variables for Buttons and Field.
  ************************************/
 
-    
-    
+
+
  @FXML
  private Button cancelButton;
+ @FXML
+ private Button saveButton;
  @FXML
  private RadioButton outsourcedRadioButton;
  @FXML
@@ -52,58 +57,58 @@ public class AddOutsourcedController implements Initializable {
  private TextField minText;
  @FXML
  private TextField machineidText;
-
-
+ @FXML
+ private Label machCompLbl;
 
 
  /***********************************
  Changing screens and scenes with buttons.
  ************************************/
 
-
+Inventory initInventory = new Inventory();
 
  @FXML
- private void inHouseButtonAction(ActionEvent event) throws IOException {
-  Stage stage;
-  Parent root;
-  stage = (Stage) inHouseButton.getScene().getWindow();
-  root = FXMLLoader.load(getClass().getResource("/View_Controller/AddInhouse.fxml"));
-  //Create a new scene with roo and set the stage
-  Scene scene = new Scene(root);
-  stage.setScene(scene);
-  stage.show();
+ private void outsourcedButtonAction(ActionEvent event)  {
+ machCompLbl.setText("Company Name");
  }
 
  @FXML
- private void outsourcedButtonAction(ActionEvent event) throws IOException {
-  Stage stage;
-  Parent root;
-  stage = (Stage) outsourcedRadioButton.getScene().getWindow();
-  root = FXMLLoader.load(getClass().getResource("/View_Controller/AddOutsourced.fxml"));
-  //Create a new scene with roo and set the stage
-  Scene scene = new Scene(root);
-  stage.setScene(scene);
-  stage.show();
+ private void inHouseButtonAction(ActionEvent event) {
+ machCompLbl.setText("Machine ID");
  }
 
  @FXML
  private void cancelButtonAction(ActionEvent event) throws IOException {
-   Stage stage;
-   Parent root;
-   stage = (Stage) cancelButton.getScene().getWindow();
-   root = FXMLLoader.load(getClass().getResource("/View_Controller/Main.fxml"));
-   //Create a new scene with roo and set the stage
-   Scene scene = new Scene(root);
-   stage.setScene(scene);
-   stage.show();
+ 
   }
  
+  @FXML
+ private void saveButtonAction(ActionEvent event) throws IOException {
+   if (inHouseButton.isSelected()){
+           initInventory.addPart(new Inhouse(Integer.parseInt(
+           machineidText.getText()),
+           initInventory.getParts().size()+1,
+           nameText.getText(),
+           Double.parseDouble(pricecostText.getText()),
+           Integer.parseInt(invText.getText()),
+           Integer.parseInt(minText.getText()),
+           Integer.parseInt(maxText.getText())));
+           
+   }
+     
+          
+ 
+   
+   
+   
+  }
   /**
    * Initializes the controller class.
    */
+
  @Override
  public void initialize(URL url, ResourceBundle rb) {
-  // TODO
+ 
  }
 
 }

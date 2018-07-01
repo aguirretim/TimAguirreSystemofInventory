@@ -26,6 +26,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 
@@ -33,7 +34,7 @@ import javafx.stage.Stage;
  *
  * @author Tim
  */
-public class Main implements Initializable, AddInhouseController.PartAdder {
+public class Main implements Initializable {
 
     ObservableList < Part > partList;
 
@@ -66,9 +67,9 @@ public class Main implements Initializable, AddInhouseController.PartAdder {
     private TableColumn < Part, Integer > partInventoryCol;
     @FXML
     private TableColumn < Part, Double > partPriceCol;
+    Stage stage = new Stage();
 
-
-
+    ArrayList < Part > startingParts = new ArrayList < > ();
     /***********************************
     Changing screens and scenes with buttons.
     ************************************/
@@ -77,32 +78,19 @@ public class Main implements Initializable, AddInhouseController.PartAdder {
 
     @FXML
     private void partsAddButtonAction(ActionEvent event) throws IOException {
-        Stage stage;
-        Parent root;
         
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(
-                getClass().getResource(
-                        "/View_Controller/AddInhouse.fxml"
-                )
-        );
-        root = loader.load();
-        
-        AddInhouseController controller = 
-                loader.<AddInhouseController>getController();
-        
-        controller.setPartAdder(this);
-        stage = (Stage) partsAddButton.getScene().getWindow();
-        
-        //Create a new scene with roo and set the stage
+        Parent root = FXMLLoader.load(getClass().getResource("/View_Controller/AddPart.fxml"));
+                      
         Scene scene = new Scene(root);
+        
         stage.setScene(scene);
-        stage.show();
+        stage.showAndWait();
+        refreshTable();
     }
 
     @FXML
     private void partsModifyButtonAction(ActionEvent event) throws IOException {
-        Stage stage;
+        
         Parent root;
         
         Part selectedPart = 
@@ -118,7 +106,7 @@ public class Main implements Initializable, AddInhouseController.PartAdder {
 
     @FXML
     private void productAddButtonAction(ActionEvent event) throws IOException {
-        Stage stage;
+        
         Parent root;
         stage = (Stage) productsAddButton.getScene().getWindow();
         root = FXMLLoader.load(getClass().getResource("/View_Controller/AddProduct.fxml"));
@@ -130,7 +118,7 @@ public class Main implements Initializable, AddInhouseController.PartAdder {
 
     @FXML
     private void productModifyButtonAction(ActionEvent event) throws IOException {
-        Stage stage;
+       
         Parent root;
         stage = (Stage) productsModifyButton.getScene().getWindow();
         root = FXMLLoader.load(getClass().getResource("/View_Controller/ModifyProduct.fxml"));
@@ -147,7 +135,7 @@ public class Main implements Initializable, AddInhouseController.PartAdder {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-
+        stage.initModality(Modality.APPLICATION_MODAL);
 
         /***********************************
         Creating objects from classes to display in table. 
@@ -157,9 +145,9 @@ public class Main implements Initializable, AddInhouseController.PartAdder {
 
         Inventory starter = new Inventory();
 
-        ArrayList < Part > startingParts = new ArrayList < > ();
         
-        startingParts.addAll(Inventory.getParts());
+        
+      //  startingParts.addAll(Inventory.getParts());
 
         /*startingParts.add(starter.lookupPart(0));
         startingParts.add(starter.lookupPart(1));
@@ -175,13 +163,11 @@ public class Main implements Initializable, AddInhouseController.PartAdder {
         partPriceCol.setCellValueFactory(new PropertyValueFactory < > ("Price"));
         
     }
-    //Adding to the visible table.
-    @Override
-    public void addPart(Part p) {
-        //this.partList.addAll(p);
-        
-        Inventory inv = new Inventory();
-        inv.addPart(p);
-        //this.partTable.refresh();
-    }
+   
+   public void refreshTable(){
+   
+   partList = FXCollections.observableArrayList(startingParts);
+
+   partTable.setItems(this.partList);
+   }
 }

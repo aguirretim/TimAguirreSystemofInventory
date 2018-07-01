@@ -58,8 +58,7 @@ public class Inventory {
         //products.put(product.getProductID(), product);
     }
     
-    public void addPart(Part part) {
-        part.setPartID(this.getNewPartId());
+    public void addPart(Part part) { 
        allParts.add(part);
     }
     
@@ -76,8 +75,8 @@ public class Inventory {
         //allPart.put(part.getPartID(), part);
     }
     
-    public static Collection<Part> getParts() {
-        return Collections.unmodifiableCollection(allParts);
+    public ArrayList<Part>getParts() {
+        return allParts;
     }
     
     
