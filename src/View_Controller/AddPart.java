@@ -6,6 +6,7 @@
 package View_Controller;
 
 import Model.Inhouse;
+import Model.Outsourced;
 import Model.Inventory;
 import Model.Part;
 import java.io.IOException;
@@ -79,13 +80,14 @@ Inventory initInventory = new Inventory();
 
  @FXML
  private void cancelButtonAction(ActionEvent event) throws IOException {
- 
+    cancelButton.getScene().getWindow().hide();
   }
  
   @FXML
  private void saveButtonAction(ActionEvent event) throws IOException {
    if (inHouseButton.isSelected()){
-           initInventory.addPart(new Inhouse(Integer.parseInt(
+           initInventory.addPart(new Inhouse(
+                   Integer.parseInt(
            machineidText.getText()),
            initInventory.getParts().size()+1,
            nameText.getText(),
@@ -93,14 +95,23 @@ Inventory initInventory = new Inventory();
            Integer.parseInt(invText.getText()),
            Integer.parseInt(minText.getText()),
            Integer.parseInt(maxText.getText())));
-           
+           saveButton.getScene().getWindow().hide();        
    }
-     
+   else if (outsourcedRadioButton.isSelected()){
+           initInventory.addPart(new Outsourced(
+           machineidText.getText(),
+           initInventory.getParts().size()+1,
+           nameText.getText(),
+           Double.parseDouble(pricecostText.getText()),
+           Integer.parseInt(invText.getText()),
+           Integer.parseInt(minText.getText()),
+           Integer.parseInt(maxText.getText())));
+           saveButton.getScene().getWindow().hide();
+   } else{
+    System.out.println("Something weird happaned with creating a part");  
+   }
+   
           
- 
-   
-   
-   
   }
   /**
    * Initializes the controller class.

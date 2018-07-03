@@ -70,6 +70,8 @@ public class Main implements Initializable {
     Stage stage = new Stage();
 
     ArrayList < Part > startingParts = new ArrayList < > ();
+    Inventory starter = new Inventory();
+    
     /***********************************
     Changing screens and scenes with buttons.
     ************************************/
@@ -140,12 +142,6 @@ public class Main implements Initializable {
         /***********************************
         Creating objects from classes to display in table. 
         ************************************/
-
-
-
-        Inventory starter = new Inventory();
-
-        
         
       //  startingParts.addAll(Inventory.getParts());
 
@@ -166,8 +162,9 @@ public class Main implements Initializable {
    
    public void refreshTable(){
    
-   partList = FXCollections.observableArrayList(startingParts);
-
+   partList = FXCollections.observableArrayList(starter.getParts());
+   
    partTable.setItems(this.partList);
+   
    }
 }
