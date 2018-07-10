@@ -21,9 +21,7 @@ public class Inventory {
     private static int partCounter = 0;
     //private static int productCounter=0p
     
-    private synchronized int getNewPartId(){
-        return partCounter++;
-    }
+    
     
     private synchronized int getNewProductId(){
        return 3;

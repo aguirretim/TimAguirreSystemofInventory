@@ -24,7 +24,7 @@ public class Outsourced extends Part {
 
     public Outsourced(String companyName, int partID, String name, double price, int inStock,int min, int max) {
         this.companyName = companyName;        
-        setPartID(++partID);
+        setPartID(partID);
         setName(name);
         setPrice(price);
         setInStock(inStock);

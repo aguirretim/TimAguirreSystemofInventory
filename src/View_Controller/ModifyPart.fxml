@@ -4,10 +4,11 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View_Controller.ModifyInhouseController">
+<AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View_Controller.ModifyPart">
     <children>
       <Label layoutX="73.0" layoutY="78.0" text="Modify Part" textFill="NAVY">
          <font>
@@ -20,8 +21,8 @@
       <Label layoutX="89.0" layoutY="404.0" text="Price/Cost" />
       <Label layoutX="96.0" layoutY="480.0" text="Max " />
       <Label layoutX="237.0" layoutY="480.0" text="Min" />
-      <Label layoutX="126.0" layoutY="562.0" text="Machine ID" />
-      <Button fx:id="saveButton" layoutX="108.0" layoutY="645.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="119.0" text="Save" />
+      <Label fx:id="machCompLbl" layoutX="100.0" layoutY="562.0" text="Machine ID" />
+      <Button fx:id="saveButton" layoutX="108.0" layoutY="645.0" mnemonicParsing="false" onAction="#saveButtonAction" prefHeight="57.0" prefWidth="119.0" text="Save" />
       <TextField fx:id="idText" editable="false" layoutX="208.0" layoutY="182.0" />
       <TextField fx:id="nameText" layoutX="208.0" layoutY="241.0" />
       <TextField fx:id="invText" layoutX="208.0" layoutY="315.0" />
@@ -30,7 +31,10 @@
       <TextField fx:id="minText" layoutX="278.0" layoutY="476.0" prefHeight="25.0" prefWidth="83.0" />
       <TextField fx:id="machineidText" layoutX="211.0" layoutY="558.0" />
       <Button fx:id="cancelButton" layoutX="273.0" layoutY="645.0" mnemonicParsing="false" onAction="#cancelButtonAction" prefHeight="57.0" prefWidth="119.0" text="Cancel" />
-      <RadioButton fx:id="outsourcedRadioButton" layoutX="333.0" layoutY="86.0" mnemonicParsing="false" onAction="#outsourcedButtonAction" text="Outsourced" />
-      <RadioButton fx:id="inHouseButton" layoutX="215.0" layoutY="86.0" mnemonicParsing="false" onAction="#inHouseButtonAction" selected="true" text="In-House" />
+      <RadioButton fx:id="outsourcedRadioButton" layoutX="333.0" layoutY="86.0" mnemonicParsing="false" onAction="#outsourcedButtonAction" text="Outsourced">
+         <toggleGroup>
+            <ToggleGroup fx:id="partsGroup" />
+         </toggleGroup></RadioButton>
+      <RadioButton fx:id="inHouseButton" layoutX="215.0" layoutY="86.0" mnemonicParsing="false" onAction="#inHouseButtonAction" selected="true" text="In-House" toggleGroup="$partsGroup" />
    </children>
 </AnchorPane>

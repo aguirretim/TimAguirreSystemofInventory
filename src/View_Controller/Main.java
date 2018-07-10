@@ -5,7 +5,9 @@
  */
 package View_Controller;
 
+import Model.Inhouse;
 import Model.Inventory;
+import Model.Outsourced;
 import Model.Part;
 import java.net.URL;
 import java.util.ArrayList;
@@ -16,6 +18,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import Model.Product;
 import java.io.IOException;
+import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -25,6 +28,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -37,7 +41,8 @@ import javafx.stage.Stage;
 public class Main implements Initializable {
 
     ObservableList < Part > partList;
-
+    @FXML
+    public ObservableList<Part> dataTable=FXCollections.observableArrayList();
 
     /***********************************
      Variables for Buttons and Field.
@@ -76,6 +81,7 @@ public class Main implements Initializable {
     Changing screens and scenes with buttons.
     ************************************/
 
+    
 
 
     @FXML
@@ -93,17 +99,39 @@ public class Main implements Initializable {
     @FXML
     private void partsModifyButtonAction(ActionEvent event) throws IOException {
         
-        Parent root;
+        FXMLLoader loader= new FXMLLoader();      
+        loader.setLocation(getClass().getResource("/View_Controller/ModifyPart.fxml"));                      
+        loader.load();
         
-        Part selectedPart = 
-                this.partTable.getSelectionModel().getSelectedItem();
+        ModifyPart mpc = loader.getController();
         
-        stage = (Stage) partsModifyButton.getScene().getWindow();
-        root = FXMLLoader.load(getClass().getResource("/View_Controller/ModifyInhouse.fxml"));
-        //Create a new scene with roo and set the stage
-        Scene scene = new Scene(root);
+        Parent modifyPartWindow = loader.getRoot();
+        
+        Part partSel = partTable.getSelectionModel().getSelectedItem();
+        
+        if (partSel instanceof Inhouse){
+        
+        int machineId = ((Inhouse) partSel).getMachineID();
+        String companyName = null;
+        mpc.transferData(companyName, machineId, partSel.getPartID(),  partSel.getName(),  partSel.getPrice(),  partSel.getInStock(),  partSel.getMin(),  partSel.getMax());
+        
+       
+        }
+        if (partSel instanceof Outsourced){
+        
+        int machineId = 0;
+        String companyName = ((Outsourced) partSel).getCompanyName();
+        mpc.transferData(companyName, machineId, partSel.getPartID(),  partSel.getName(),  partSel.getPrice(),  partSel.getInStock(),  partSel.getMin(),  partSel.getMax());
+        
+       
+        }
+        Scene scene = new Scene(modifyPartWindow);        
         stage.setScene(scene);
-        stage.show();
+        stage.showAndWait();
+        refreshTable();
+        
+        
+        
     }
 
     @FXML
@@ -150,7 +178,7 @@ public class Main implements Initializable {
         startingParts.add(starter.lookupPart(2));
         startingParts.add(starter.lookupPart(3));*/
 
-        partList = FXCollections.observableArrayList(startingParts);
+        //partList = FXCollections.observableArrayList(startingParts);
 
         partTable.setItems(this.partList);
         partIdCol.setCellValueFactory(new PropertyValueFactory < > ("PartID"));
@@ -167,4 +195,12 @@ public class Main implements Initializable {
    partTable.setItems(this.partList);
    
    }
+   public void getTableRow(){
+   
+   partList = FXCollections.observableArrayList(starter.getParts());
+   
+   partTable.setItems(this.partList);
+   
+   }
+ 
 }

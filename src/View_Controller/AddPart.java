@@ -83,6 +83,8 @@ Inventory initInventory = new Inventory();
     cancelButton.getScene().getWindow().hide();
   }
  
+ 
+ //Depending on what is selected it creates a  
   @FXML
  private void saveButtonAction(ActionEvent event) throws IOException {
    if (inHouseButton.isSelected()){
@@ -97,6 +99,7 @@ Inventory initInventory = new Inventory();
            Integer.parseInt(maxText.getText())));
            saveButton.getScene().getWindow().hide();        
    }
+   
    else if (outsourcedRadioButton.isSelected()){
            initInventory.addPart(new Outsourced(
            machineidText.getText(),
