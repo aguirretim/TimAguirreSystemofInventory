@@ -12,6 +12,7 @@ import Model.Part;
 import java.io.IOException;
 import static java.lang.Double.parseDouble;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -19,7 +20,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
@@ -31,7 +35,9 @@ import javafx.stage.Stage;
  * @author Tim
  */
 public class AddPart implements Initializable {
-  
+
+
+
  /***********************************
  Variables for Buttons and Field.
  ************************************/
@@ -60,69 +66,123 @@ public class AddPart implements Initializable {
  private TextField machineidText;
  @FXML
  private Label machCompLbl;
+ @FXML
+ private int inventoryCount;
+ @FXML
+ private int minCount;
+ @FXML
+ private int maxCount;
+
+ Inventory initInventory = new Inventory();
+
 
 
  /***********************************
  Changing screens and scenes with buttons.
  ************************************/
 
-Inventory initInventory = new Inventory();
+
+
+ public boolean validateMinMax() {
+
+  if (Integer.parseInt(minText.getText()) > Integer.parseInt(maxText.getText())) {
+   Alert alert = new Alert(Alert.AlertType.INFORMATION);
+   alert.setTitle("Information Dialog");
+   alert.setHeaderText("Error");
+   alert.setContentText("The maximum must have a value greater than minimum!");
+   alert.showAndWait();
+   System.out.println("The maximum must have a value greater than minimum!");
+   return false;
+  } else {
+   return true;
+  }
+ }
+
+ public boolean validateInventory() {
+
+  if ((inventoryCount < minCount) || (inventoryCount > maxCount)) {
+   Alert alert = new Alert(Alert.AlertType.INFORMATION);
+   alert.setTitle("Information Dialog");
+   alert.setHeaderText("Error");
+   alert.setContentText("Inventory must be between the minimum or maximum value for that Part!");
+   alert.showAndWait();
+   System.out.println("Inventory must be between the minimum or maximum value for that Part!");
+   return false;
+  } else {
+   return true;
+  }
+ }
 
  @FXML
- private void outsourcedButtonAction(ActionEvent event)  {
- machCompLbl.setText("Company Name");
+ private void outsourcedButtonAction(ActionEvent event) {
+  machCompLbl.setText("Company Name");
  }
 
  @FXML
  private void inHouseButtonAction(ActionEvent event) {
- machCompLbl.setText("Machine ID");
+  machCompLbl.setText("Machine ID");
  }
 
  @FXML
  private void cancelButtonAction(ActionEvent event) throws IOException {
+  Alert alert = new Alert(AlertType.CONFIRMATION);
+
+alert.setHeaderText("Cancel creating this Part?");
+alert.setContentText("Are you sure you want to cancel?");
+
+Optional<ButtonType> result = alert.showAndWait();
+if (result.get() == ButtonType.OK){
+    // ... user chose OK
     cancelButton.getScene().getWindow().hide();
-  }
- 
- 
- //Depending on what is selected it creates a  
-  @FXML
+}
+    }
+
+ @FXML
  private void saveButtonAction(ActionEvent event) throws IOException {
-   if (inHouseButton.isSelected()){
-           initInventory.addPart(new Inhouse(
-                   Integer.parseInt(
-           machineidText.getText()),
-           initInventory.getParts().size()+1,
-           nameText.getText(),
-           Double.parseDouble(pricecostText.getText()),
-           Integer.parseInt(invText.getText()),
-           Integer.parseInt(minText.getText()),
-           Integer.parseInt(maxText.getText())));
-           saveButton.getScene().getWindow().hide();        
+
+  inventoryCount = Integer.parseInt(invText.getText());
+  minCount = Integer.parseInt(minText.getText());
+  maxCount = Integer.parseInt(maxText.getText());
+
+  if (validateMinMax() && validateInventory()) {
+
+   if (inHouseButton.isSelected()) {
+    initInventory.addPart(new Inhouse(
+     Integer.parseInt(
+      machineidText.getText()),
+     initInventory.getParts().size() + 1,
+     nameText.getText(),
+     Double.parseDouble(pricecostText.getText()),
+     Integer.parseInt(invText.getText()),
+     Integer.parseInt(minText.getText()),
+     Integer.parseInt(maxText.getText())));
+    saveButton.getScene().getWindow().hide();
+   } else if (outsourcedRadioButton.isSelected()) {
+    initInventory.addPart(new Outsourced(
+     machineidText.getText(),
+     initInventory.getParts().size() + 1,
+     nameText.getText(),
+     Double.parseDouble(pricecostText.getText()),
+     Integer.parseInt(invText.getText()),
+     Integer.parseInt(minText.getText()),
+     Integer.parseInt(maxText.getText())));
+    saveButton.getScene().getWindow().hide();
+   } else {
+    System.out.println("Something weird happaned with creating a part");
    }
-   
-   else if (outsourcedRadioButton.isSelected()){
-           initInventory.addPart(new Outsourced(
-           machineidText.getText(),
-           initInventory.getParts().size()+1,
-           nameText.getText(),
-           Double.parseDouble(pricecostText.getText()),
-           Integer.parseInt(invText.getText()),
-           Integer.parseInt(minText.getText()),
-           Integer.parseInt(maxText.getText())));
-           saveButton.getScene().getWindow().hide();
-   } else{
-    System.out.println("Something weird happaned with creating a part");  
-   }
-   
-          
+
   }
-  /**
-   * Initializes the controller class.
-   */
+
+
+
+ }
+ /**
+  * Initializes the controller class.
+  */
 
  @Override
  public void initialize(URL url, ResourceBundle rb) {
- 
+
  }
 
 }
