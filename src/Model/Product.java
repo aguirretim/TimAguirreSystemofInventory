@@ -10,9 +10,11 @@ package Model;
  * @author Tim
  */
 import java.util.ArrayList;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class Product {
-    private ArrayList <Part> associatedParts = new ArrayList<>();
+    private ObservableList <Part> associatedParts = FXCollections.observableArrayList();
     private int ProductID;
     private String Name;
     private double Price;
@@ -30,8 +32,8 @@ public class Product {
      * @param min
      * @param max
      ************************************/
-    public Product(ArrayList part, int productID, String name, double price, int inStock, int min, int max) {
-        associatedParts = part;
+    public Product( int productID, String name, double price, int inStock, int min, int max) {
+   
         ProductID = productID;
         Name = name;
         Price = price;

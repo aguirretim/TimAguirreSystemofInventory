@@ -43,13 +43,18 @@ import javafx.stage.Stage;
  */
 public class Main implements Initializable {
 
-    /**
-     * *********************************
+    
+    
+    /************************************
      * Variables for Buttons and Field.
-  ***********************************
-     */
+     ************************************/
+    
+    
+    
     //List that holds part objects that are displayed in table
     ObservableList< Part> partList;
+    
+    ObservableList <Product> productList;
     //List that holds part objects that are displayed in table for search
     ObservableList< Part> partList2;
 
@@ -75,6 +80,8 @@ public class Main implements Initializable {
     @FXML
     private TableView< Part> partTable;
     @FXML
+    private TableView< Product> productTable;
+    @FXML
     private TableColumn< Part, Integer> partIdCol;
     @FXML
     private TableColumn< Part, String> partNameCol;
@@ -82,6 +89,14 @@ public class Main implements Initializable {
     private TableColumn< Part, Integer> partInventoryCol;
     @FXML
     private TableColumn< Part, Double> partPriceCol;
+    @FXML
+    private TableColumn< Product, Integer> productIdCol;
+    @FXML
+    private TableColumn< Product, String>productNameCol;
+    @FXML
+    private TableColumn< Product, Integer>productInventoryCol;
+    @FXML
+    private TableColumn< Product, Double>productPriceCol;
     //Stage setting variable for Button actions to select new stages to display
     Stage stage = new Stage();
     //The inventory object that contains all of the parts and product listed inside
@@ -100,6 +115,7 @@ public class Main implements Initializable {
         Scene scene = new Scene(root);
 
         stage.setScene(scene);
+        stage.setTitle("Add Part");
         stage.showAndWait();
         refreshTable();
     }
@@ -132,6 +148,7 @@ public class Main implements Initializable {
 
         }
         Scene scene = new Scene(modifyPartWindow);
+        stage.setTitle("Modify Part");
         stage.setScene(scene);
         stage.showAndWait();
         refreshTable();
@@ -142,6 +159,7 @@ public class Main implements Initializable {
     private void productAddButtonAction(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/View_Controller/AddProduct.fxml"));
         Scene scene = new Scene(root);
+        stage.setTitle("Add Product");
         stage.setScene(scene);
         stage.showAndWait();
         refreshTable();
@@ -156,7 +174,9 @@ public class Main implements Initializable {
         root = FXMLLoader.load(getClass().getResource("/View_Controller/ModifyProduct.fxml"));
         //Create a new scene with roo and set the stage
         Scene scene = new Scene(root);
+        stage.setTitle("Modify Product");
         stage.setScene(scene);
+        
         stage.show();
     }
 
@@ -175,75 +195,51 @@ public class Main implements Initializable {
         }
     }
 
-//    @FXML
-//    private void searchButtonAction(ActionEvent event) throws IOException {
-//        
-////        // create a list of parts containing only the parts we are interested in
-////        List<Part> filteredParts = new ArrayList<>();
-////      
-////        // if the filter string is a number do an id search
-////        
-////        try {
-////            int num = Integer.parseInt(partsSearchtext.getText());
-////            // id search
-////            //filteredParts.add(...);
-////            System.out.println("its a number");
-////        } catch (NumberFormatException e) {
-////            // not a number so try a name search
-////            //filteredParts.add(...);
-////            System.out.println("its not a number");
-////        }
-//        
-//        partList = FXCollections.observableArrayList(filteredParts);
-//        partTable.setItems(this.partList);
-//        partTable.refresh();
-//        System.out.println("Refreash table called");
-//    }
+
 
     @FXML
     private void searchButtonAction(ActionEvent event) throws IOException {
-        //System.out.println(partList.size());
-        
-        // create a list of parts containing only the parts we are interested in
         try {
-            int itemnumber = Integer.parseInt(partsSearchtext.getText());
-            boolean found = false;
-            for (int i = 0; i < partList.size(); i++) {
-                //System.out.println(partList.get(i).getName());
-                if (partList.get(i).getPartID() == itemnumber) {
-                    System.out.println("This is part " + itemnumber);
+        int partId=Integer.parseInt(partsSearchtext.getText());
+            Part partfound = warehouse.lookupPart(partId);
+                partTable.requestFocus();
+                partTable.getSelectionModel().select(partfound);
 
-                    found = true;
-                    partList2 = FXCollections.observableArrayList(partList.get(i));
-                    partTable.setItems(this.partList2);
-                    partIdCol.setCellValueFactory(new PropertyValueFactory<>("PartID"));
-                    partNameCol.setCellValueFactory(new PropertyValueFactory<>("Name"));
-                    partInventoryCol.setCellValueFactory(new PropertyValueFactory<>("InStock"));
-                    partPriceCol.setCellValueFactory(new PropertyValueFactory<>("Price"));
-                }
-
-            }
-
-            if (found == false) {
+                    System.out.println(partfound);
+                if (partfound == null){               
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Information Dialog");
                 alert.setHeaderText("Sorry");
                 alert.setContentText("No Results matched your search.");
                 alert.showAndWait();
-                refreshTable();
-            }
-        } catch (NumberFormatException e) {
-            refreshTable();
-        }
-
+                refreshTable();                    
+                } 
+                
+                }
+                catch (NumberFormatException e) {
+            String name=partsSearchtext.getText();     
+              Part partfound = warehouse.lookupPartName(name);
+                partTable.requestFocus();
+                partTable.getSelectionModel().select(partfound);
+                System.out.println(partfound);
+                
+                if (partfound == null){               
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Information Dialog");
+                alert.setHeaderText("Sorry");
+                alert.setContentText("No Results matched your search.");
+                alert.showAndWait();
+                refreshTable();                    
+                } 
+                
+                }               
     }
 
     @FXML
     private void partDelButtonAction(ActionEvent event) throws IOException {
 
         Part partSel = partTable.getSelectionModel().getSelectedItem();
-        System.out.print(partSel.getPartID());
-        warehouse.deletePart(partSel.getPartID());
+        warehouse.deletePart(partSel);
         
         System.out.print(partList);
         System.out.print(warehouse);
@@ -253,36 +249,54 @@ public class Main implements Initializable {
     }
 
     public void refreshTable() {
-        partList = FXCollections.observableArrayList(warehouse.getParts());
+        partList = warehouse.getParts();
         partTable.setItems(this.partList);
         partTable.refresh();
-        System.out.println("Refreash table called");
+        System.out.println("Refresh table called");
     }
 
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
         stage.initModality(Modality.APPLICATION_MODAL);
-
-        /**
-         * *********************************
-         * Loads the Parts object from the Parts list and displays the fields in
-         * columns listed.
-  ************************************
-         */
+        stage.setResizable(false);
         
-        warehouse.addPart(new Inhouse(123, 0, "part1", 4.4, 5,1, 10));
-        warehouse.addPart(new Inhouse(123, 1, "part2", 4.4, 5,1, 10));
-        warehouse.addPart(new Inhouse(123, 2, "part3", 4.4, 5,1, 10));
-        warehouse.addPart(new Inhouse(123, 3, "part4", 4.4, 5,1, 10));
         
-        partTable.setItems(this.partList);
+        
+        /************************************
+        Loads the Parts object from the Parts list and displays the fields in
+        columns listed.
+          *************************************/
+        
+        
+        
+        partTable.setItems(warehouse.getParts());
         partIdCol.setCellValueFactory(new PropertyValueFactory<>("PartID"));
         partNameCol.setCellValueFactory(new PropertyValueFactory<>("Name"));
         partInventoryCol.setCellValueFactory(new PropertyValueFactory<>("InStock"));
         partPriceCol.setCellValueFactory(new PropertyValueFactory<>("Price"));
+       
+        /*productTable.setItems(this.productList);
+        productIdCol.setCellValueFactory(new PropertyValueFactory<>("Product ID"));
+        productNameCol.setCellValueFactory(new PropertyValueFactory<>("Name"));
+        productInventoryCol.setCellValueFactory(new PropertyValueFactory<>("InStock"));
+        productPriceCol.setCellValueFactory(new PropertyValueFactory<>("Price"));*/        
 
-        refreshTable();
+
+        
+        /************************************
+        pre filled sample data for testing
+          *************************************/
+        
+        
+        
+        warehouse.addPart(new Inhouse(123, 1, "part1", 4.4, 5,1, 10));
+        warehouse.addPart(new Inhouse(123, 2, "part2", 4.4, 5,1, 10));
+        warehouse.addPart(new Outsourced("TimCompany",3, "Frame", 1.50, 40,1, 100));                      
+        warehouse.addPart(new Outsourced("BOBCompany",4, "Metalic Screen", .75, 20,1, 100));
+        
+       
         
     }
 }

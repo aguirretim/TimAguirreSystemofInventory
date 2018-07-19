@@ -14,11 +14,13 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class Inventory {
 
-    private static ArrayList<Part> allParts = new ArrayList<>();
-    private static ArrayList<Product> products = new ArrayList<>();
+    private static ObservableList<Part> allParts = FXCollections.observableArrayList();
+    private static ObservableList<Part> products = FXCollections.observableArrayList();
     private static int partCounter = 0;
     //private static int productCounter=0p
 
@@ -38,15 +40,16 @@ public class Inventory {
 
     public boolean removeProduct(int productID) {
 
-        Product found = products.remove(productID);
-        return (found != null);
-
+        //Product found = products.remove(productID);
+        //return (found != null);
+        return false;
     }
 
     public Product lookupProduct(int productID) {
 
         // the easy way
-        return products.get(productID);
+        //return products.get(productID);
+        return null;
         // the right way to do it
         //return new Product(products.get(productID));
     }
@@ -59,20 +62,42 @@ public class Inventory {
         allParts.add(part);
     }
 
-    public boolean deletePart(int partID) {
-        // Part found = allPart.remove(partID);
-        
-        if(partID<0 ||partID>=allParts.size()){
+    public void deletePart(Part part) {
+       
+        allParts.remove(part);
+        //Part found = allParts.remove(partID);
+          
+         //return true;
+       
+     /*   if(partID<0 ||partID>=allParts.size()){
             return (false);
         }
         else {
             allParts.remove(partID - 1);
             return true;
-        }
+        }*/
     }
 
     public Part lookupPart(int partID) {
-        return allParts.get(partID);
+        Part Fp = null;
+        for(int i=0;i<allParts.size();i++){
+        if (partID==allParts.get(i).getPartID()){
+            Fp= allParts.get(i);
+        }
+        
+        }
+        return Fp;
+    }
+        public Part lookupPartName(String partName) {
+        Part Fp = null;
+        for(int i=0;i<allParts.size();i++){
+        if (partName.equalsIgnoreCase(allParts.get(i).getName())){
+            
+            Fp=allParts.get(i);
+        }
+        
+        }
+        return Fp;
     }
 
     public void updatePart(Part part) {
@@ -80,7 +105,7 @@ public class Inventory {
         //allParts.put(part.getPartID(), part);
     }
 
-    public ArrayList<Part> getParts() {
+    public ObservableList<Part> getParts() {
         return allParts;
     }
 

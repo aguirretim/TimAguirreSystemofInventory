@@ -8,8 +8,11 @@ package View_Controller;
 import Model.Inhouse;
 import Model.Inventory;
 import Model.Outsourced;
+import Model.Part;
+import Model.Product;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -31,63 +34,52 @@ import javafx.stage.Stage;
  */
 public class AddProductController implements Initializable {
 
-    
-    
- /***********************************
- Variables for Buttons and Field.
- ************************************/
- 
-    
-    
- @FXML
- private Button cancelButton;
- @FXML
- private Button saveButton;
- @FXML
- private TextField idText;
- @FXML
- private TextField nameText;
- @FXML
- private TextField invText;
- @FXML
- private TextField pricecostText;
- @FXML
- private TextField maxText;
- @FXML
- private TextField minText;
- 
- Inventory initInventory = new Inventory();
- 
- 
- /***********************************
- Changing screens and scenes with buttons.
- ************************************/
+    /**
+     * *********************************
+     * Variables for Buttons and Field.
+ ***********************************
+     */
+    @FXML
+    private Button cancelButton;
+    @FXML
+    private Button saveButton;
+    @FXML
+    private TextField idText;
+    @FXML
+    private TextField nameText;
+    @FXML
+    private TextField invText;
+    @FXML
+    private TextField pricecostText;
+    @FXML
+    private TextField maxText;
+    @FXML
+    private TextField minText;
 
+    Inventory initInventory = new Inventory();
 
-@FXML
- private void cancelButtonAction(ActionEvent event) throws IOException {
-  Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+    /************************************ 
+     Changing screens and scenes with buttons.
+     *************************************/
+    @FXML
+    private void cancelButtonAction(ActionEvent event) throws IOException {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
 
-alert.setHeaderText("Cancel creating this Product?");
-alert.setContentText("Are you sure you want to cancel?");
+        alert.setHeaderText("Cancel creating this Product?");
+        alert.setContentText("Are you sure you want to cancel?");
 
-Optional<ButtonType> result = alert.showAndWait();
-if (result.get() == ButtonType.OK){
-    // ... user chose OK
-    cancelButton.getScene().getWindow().hide();
-}
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            // ... user chose OK
+            cancelButton.getScene().getWindow().hide();
+        }
     }
 
- @FXML
- private void saveButtonAction(ActionEvent event) throws IOException {
-
-  
-
-
-   /*if (inHouseButton.isSelected()) {
-    initInventory.addPart(new Inhouse(
-     Integer.parseInt(
-      machineidText.getText()),
+    @FXML
+    private void saveButtonAction(ActionEvent event) throws IOException {
+        ArrayList <Part> associatedParts = new ArrayList<>();
+        
+    initInventory.addProduct(new Product( 
      initInventory.getParts().size() + 1,
      nameText.getText(),
      Double.parseDouble(pricecostText.getText()),
@@ -95,27 +87,16 @@ if (result.get() == ButtonType.OK){
      Integer.parseInt(minText.getText()),
      Integer.parseInt(maxText.getText())));
     saveButton.getScene().getWindow().hide();
-   } else if (outsourcedRadioButton.isSelected()) {
-    initInventory.addPart(new Outsourced(
-     machineidText.getText(),
-     initInventory.getParts().size() + 1,
-     nameText.getText(),
-     Double.parseDouble(pricecostText.getText()),
-     Integer.parseInt(invText.getText()),
-     Integer.parseInt(minText.getText()),
-     Integer.parseInt(maxText.getText())));
-    saveButton.getScene().getWindow().hide();
-   } else {
-    System.out.println("Something weird happaned with creating a part");
-   }*/
+   } 
+    
 
- }
- /**
-  * Initializes the controller class.
-  */
- @Override
- public void initialize(URL url, ResourceBundle rb) {
-  // TODO
- }
+
+    /**
+     * Initializes the controller class.
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        // TODO
+    }
 
 }
