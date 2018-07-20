@@ -20,7 +20,7 @@ import javafx.collections.ObservableList;
 public class Inventory {
 
     private static ObservableList<Part> allParts = FXCollections.observableArrayList();
-    private static ObservableList<Part> products = FXCollections.observableArrayList();
+    private static ObservableList<Product> allProducts = FXCollections.observableArrayList();
     private static int partCounter = 0;
     //private static int productCounter=0p
 
@@ -33,14 +33,15 @@ public class Inventory {
         //Product p = new Product(product);
 
         // the easy way
-        Product p = product;
-        p.setProductID(getNewProductId());
-        //products.put(p.getProductID(), p);   
+        /*Product p = product;
+        p.setProductID(getNewProductId());*/
+        //products.put(p.getProductID(), p);
+        allProducts.add(product);
     }
 
     public boolean removeProduct(int productID) {
 
-        //Product found = products.remove(productID);
+        //Product found = allProducts.reove(productID);
         //return (found != null);
         return false;
     }
@@ -48,14 +49,34 @@ public class Inventory {
     public Product lookupProduct(int productID) {
 
         // the easy way
-        //return products.get(productID);
-        return null;
-        // the right way to do it
-        //return new Product(products.get(productID));
+        //return allProducts.get(productID);
+                Product Fp = null;
+        for(int i=0;i<allProducts.size();i++){
+        if (productID==allProducts.get(i).getProductID()){
+            Fp=allProducts.get(i);
+        }
+        
+        }
+        return Fp;
     }
+        public Product lookupProductName(String productName) {
+        Product Fp = null;
+        for(int i=0;i<allProducts.size();i++){
+        if (productName.equalsIgnoreCase(allProducts.get(i).getName())){
+            
+            Fp=allProducts.get(i);
+        }
+        
+        }
+        return Fp;
+    }
+        // the right way to do it
+        //return new Product(allProducts.get(productID));
+    
 
     public void updateProduct(Product product) {
         //products.put(product.getProductID(), product);
+        allProducts.set(product.getProductID() - 1, product);
     }
 
     public void addPart(Part part) {
@@ -107,6 +128,9 @@ public class Inventory {
 
     public ObservableList<Part> getParts() {
         return allParts;
+    }
+    public ObservableList<Product> getProducts() {
+        return allProducts;
     }
 
 }

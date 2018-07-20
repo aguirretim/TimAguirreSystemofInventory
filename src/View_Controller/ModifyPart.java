@@ -150,8 +150,8 @@ public class ModifyPart implements Initializable {
         nameText.setText(name);
         invText.setText(String.valueOf(inStock));
         pricecostText.setText(String.valueOf(price));
-        maxText.setText(String.valueOf(min));
-        minText.setText(String.valueOf(max));
+        maxText.setText(String.valueOf(max));
+        minText.setText(String.valueOf(min));
 
         if (companyName == null) {
             inHouseButton.setSelected(true);

@@ -63,6 +63,8 @@ public class Main implements Initializable {
     @FXML
     private TextField partsSearchtext;
     @FXML
+    private TextField productsSearchText;    
+    @FXML
     private Button partsAddButton;
     @FXML
     private Button partsDeleteButton;
@@ -102,6 +104,7 @@ public class Main implements Initializable {
     //The inventory object that contains all of the parts and product listed inside
     Inventory warehouse = new Inventory();
 
+    
     /**
      * *********************************
      * Changing screens and scenes with buttons.
@@ -163,22 +166,33 @@ public class Main implements Initializable {
         stage.setScene(scene);
         stage.showAndWait();
         refreshTable();
-
+        
     }
 
     @FXML
     private void productModifyButtonAction(ActionEvent event) throws IOException {
 
-        Parent root;
-        stage = (Stage) productsModifyButton.getScene().getWindow();
-        root = FXMLLoader.load(getClass().getResource("/View_Controller/ModifyProduct.fxml"));
-        //Create a new scene with roo and set the stage
-        Scene scene = new Scene(root);
+        FXMLLoader loader = new FXMLLoader(); //Loads an object hierarchy from an XML document.     
+        loader.setLocation(getClass().getResource("/View_Controller/ModifyProduct.fxml")); //  reference FXML files like this in my controllers                 
+        loader.load();
+
+        ModifyProductController mpc = loader.getController(); // loads the reference FXML controller
+
+        Parent modifyProductWindow = loader.getRoot();
+
+        Product productSel = productTable.getSelectionModel().getSelectedItem();
+
+  
+            String companyName = null;
+            mpc.transferData( productSel.getProductID(), productSel.getName(), productSel.getPrice(), productSel.getInStock(), productSel.getMin(), productSel.getMax());
+            
+       
+        Scene scene = new Scene(modifyProductWindow);
         stage.setTitle("Modify Product");
         stage.setScene(scene);
-        
-        stage.show();
-    }
+        stage.showAndWait();
+        refreshTable();
+}
 
     @FXML
     private void exitButtonAction(ActionEvent event) throws IOException {
@@ -234,23 +248,64 @@ public class Main implements Initializable {
                 
                 }               
     }
+    
+    
+
+    @FXML
+    private void searchButtonActionProducts(ActionEvent event) throws IOException {
+        try {
+        int productId=Integer.parseInt(productsSearchText.getText());
+            Product Productfound = warehouse.lookupProduct(productId);
+                productTable.requestFocus();
+                productTable.getSelectionModel().select(productId);
+                    
+                    System.out.println(Productfound.toString());
+                if (Productfound == null){               
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Information Dialog");
+                alert.setHeaderText("Sorry");
+                alert.setContentText("No Results matched your search.");
+                alert.showAndWait();
+                refreshTable();                    
+                } 
+                
+                }
+                catch (NumberFormatException e) {
+            String name=productsSearchText.getText();     
+              Product Productfound = warehouse.lookupProductName(name);
+                productTable.requestFocus();
+                productTable.getSelectionModel().select(Productfound);
+                System.out.println(Productfound);
+                
+                if (Productfound == null){               
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Information Dialog");
+                alert.setHeaderText("Sorry");
+                alert.setContentText("No Results matched your search.");
+                alert.showAndWait();
+                refreshTable();                    
+                } 
+                
+                }               
+    }
 
     @FXML
     private void partDelButtonAction(ActionEvent event) throws IOException {
 
         Part partSel = partTable.getSelectionModel().getSelectedItem();
-        warehouse.deletePart(partSel);
         
-        System.out.print(partList);
-        System.out.print(warehouse);
-
+        partTable.getItems().remove(partSel);
+        
         refreshTable();
 
     }
 
     public void refreshTable() {
         partList = warehouse.getParts();
+        productList=warehouse.getProducts();
         partTable.setItems(this.partList);
+        productTable.setItems(this.productList);
+        productTable.refresh();
         partTable.refresh();
         System.out.println("Refresh table called");
     }
@@ -277,11 +332,11 @@ public class Main implements Initializable {
         partInventoryCol.setCellValueFactory(new PropertyValueFactory<>("InStock"));
         partPriceCol.setCellValueFactory(new PropertyValueFactory<>("Price"));
        
-        /*productTable.setItems(this.productList);
-        productIdCol.setCellValueFactory(new PropertyValueFactory<>("Product ID"));
+        productTable.setItems(warehouse.getProducts());
+        productIdCol.setCellValueFactory(new PropertyValueFactory<>("ProductID"));
         productNameCol.setCellValueFactory(new PropertyValueFactory<>("Name"));
         productInventoryCol.setCellValueFactory(new PropertyValueFactory<>("InStock"));
-        productPriceCol.setCellValueFactory(new PropertyValueFactory<>("Price"));*/        
+        productPriceCol.setCellValueFactory(new PropertyValueFactory<>("Price"));       
 
 
         

@@ -42,6 +42,13 @@ public class Product {
         Max = max;
     }
 
+    @Override
+    public String toString() {
+        return "Product{" + "associatedParts=" + associatedParts + ", ProductID=" + ProductID + ", Name=" + Name + ", Price=" + Price + ", InStock=" + InStock + ", Min=" + Min + ", Max=" + Max + '}';
+    }
+
+
+
     /***********************************
      Constructor
      * @param other
@@ -58,7 +65,7 @@ public class Product {
 
 
     public void addAssociatedPart(Part part) {
-        //associatedParts.add(part);
+       // associatedParts.add(part);
         // to avoid dup.
         if(associatedParts.indexOf(part)<0)associatedParts.add(part);
     }

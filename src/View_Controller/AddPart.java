@@ -72,6 +72,8 @@ public class AddPart implements Initializable {
  private int minCount;
  @FXML
  private int maxCount;
+ @FXML
+ private int partCount;
 
  Inventory initInventory = new Inventory();
 
@@ -139,18 +141,19 @@ if (result.get() == ButtonType.OK){
 
  @FXML
  private void saveButtonAction(ActionEvent event) throws IOException {
-
+     int lastRow=initInventory.getParts().size()-1;
   inventoryCount = Integer.parseInt(invText.getText());
   minCount = Integer.parseInt(minText.getText());
   maxCount = Integer.parseInt(maxText.getText());
-
+     int partID=initInventory.getParts().get(lastRow).getPartID()+1;
+             
   if (validateMinMax() && validateInventory()) {
 
    if (inHouseButton.isSelected()) {
     initInventory.addPart(new Inhouse(
      Integer.parseInt(
       machineidText.getText()),
-     initInventory.getParts().size() + 1,
+     partID,
      nameText.getText(),
      Double.parseDouble(pricecostText.getText()),
      Integer.parseInt(invText.getText()),
@@ -160,7 +163,7 @@ if (result.get() == ButtonType.OK){
    } else if (outsourcedRadioButton.isSelected()) {
     initInventory.addPart(new Outsourced(
      machineidText.getText(),
-     initInventory.getParts().size() + 1,
+     partID,
      nameText.getText(),
      Double.parseDouble(pricecostText.getText()),
      Integer.parseInt(invText.getText()),
