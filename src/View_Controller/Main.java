@@ -184,7 +184,7 @@ public class Main implements Initializable {
 
   
             String companyName = null;
-            mpc.transferData( productSel.getProductID(), productSel.getName(), productSel.getPrice(), productSel.getInStock(), productSel.getMin(), productSel.getMax());
+            mpc.transferData( productSel.getProductID(), productSel.getName(), productSel.getPrice(), productSel.getInStock(), productSel.getMin(), productSel.getMax(),productSel.getAssociatedParts());
             
        
         Scene scene = new Scene(modifyProductWindow);

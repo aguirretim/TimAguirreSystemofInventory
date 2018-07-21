@@ -75,6 +75,8 @@ public class AddPart implements Initializable {
  @FXML
  private int partCount;
 
+
+ 
  Inventory initInventory = new Inventory();
 
 
@@ -86,7 +88,10 @@ public class AddPart implements Initializable {
 
 
  public boolean validateMinMax() {
-
+  
+  minCount = Integer.parseInt(minText.getText());
+  maxCount = Integer.parseInt(maxText.getText());
+  
   if (Integer.parseInt(minText.getText()) > Integer.parseInt(maxText.getText())) {
    Alert alert = new Alert(Alert.AlertType.INFORMATION);
    alert.setTitle("Information Dialog");
@@ -101,6 +106,9 @@ public class AddPart implements Initializable {
  }
 
  public boolean validateInventory() {
+ minCount = Integer.parseInt(minText.getText());
+ maxCount = Integer.parseInt(maxText.getText());
+inventoryCount = Integer.parseInt(invText.getText());
 
   if ((inventoryCount < minCount) || (inventoryCount > maxCount)) {
    Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -141,12 +149,23 @@ if (result.get() == ButtonType.OK){
 
  @FXML
  private void saveButtonAction(ActionEvent event) throws IOException {
-     int lastRow=initInventory.getParts().size()-1;
-  inventoryCount = Integer.parseInt(invText.getText());
-  minCount = Integer.parseInt(minText.getText());
-  maxCount = Integer.parseInt(maxText.getText());
-     int partID=initInventory.getParts().get(lastRow).getPartID()+1;
-             
+     
+     
+
+  
+     int lastRow=initInventory.getParts().size()-1; 
+     int partID;  
+     try {
+      partID=initInventory.getParts().get(lastRow).getPartID()+1;}
+    catch (ArrayIndexOutOfBoundsException e){
+      partID=1;
+    
+    }
+     
+      
+       
+     
+     
   if (validateMinMax() && validateInventory()) {
 
    if (inHouseButton.isSelected()) {

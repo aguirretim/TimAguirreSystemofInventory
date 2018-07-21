@@ -90,16 +90,116 @@ public class AddProductController implements Initializable {
     private TableColumn< Part, Integer> partInventoryCol2;
     @FXML
     private TableColumn< Part, Double> partPriceCol2;
-
-    
+    @FXML
+    private String productName;
+    @FXML
+    private double productPrice;
+    @FXML
+    private int inventoryCount;
+    @FXML
+    private int minCount;
+    @FXML
+    private int maxCount;
+    @FXML
+    private int partCount;
     
     Inventory initInventory = new Inventory();
      //Inventory initInventory2 = new Inventory();
-    ArrayList <Part> associatedParts = new ArrayList<>();
+  //  ArrayList <Part> associatedParts = new ArrayList<>();
     
+     
     /************************************ 
      Changing screens and scenes with buttons.
      *************************************/
+    public boolean validateProductPriceVsParts(Product newProduct) {
+    double totalPartPrice = 0;
+    productPrice= Double.parseDouble(priceCostText.getText());
+    for (int i = 0; i < associatedPartList.size(); i++){
+         totalPartPrice = totalPartPrice + newProduct.getAssociatedParts().get(i).getPrice();
+    }
+
+     if (productPrice<totalPartPrice) {
+   Alert alert = new Alert(Alert.AlertType.INFORMATION);
+    alert.setTitle("Information Dialog");
+    alert.setHeaderText("Sorry");
+    alert.setContentText("Product Price Must be greater than Associated Parts Total Price.");
+    System.out.println("Product Price Must be greater than Associated Parts Total Price.");
+    alert.showAndWait();
+    return false;
+   
+     }
+   else {
+   return true;
+  }
+    }
+     
+  
+    public boolean validateProductName() {
+    productName=nameText.getText();
+    if (productName.equals(null)|| productName.isEmpty()) {
+   Alert alert = new Alert(Alert.AlertType.INFORMATION);
+   alert.setTitle("Information Dialog");
+   alert.setHeaderText("Error");
+   alert.setContentText("Please enter a product name");
+   alert.showAndWait();
+   System.out.println("Please enter a product name");
+   return false;
+  } else {
+   return true;
+  }
+    }
+        public boolean validatePrice() {
+    productPrice= Double.parseDouble(priceCostText.getText());
+    if (productPrice<0) {
+   Alert alert = new Alert(Alert.AlertType.INFORMATION);
+   alert.setTitle("Information Dialog");
+   alert.setHeaderText("Error");
+   alert.setContentText("Please enter a product price 0 or greater");
+   alert.showAndWait();
+   System.out.println("Please enter a product price 0 or greater");
+   return false;
+  } else {
+   return true;
+  }
+    }
+    
+     public boolean validateMinMax() {
+  minCount = Integer.parseInt(minText.getText());
+  maxCount = Integer.parseInt(maxText.getText());
+  
+         
+         
+  if (minCount > maxCount ||minCount+maxCount==0 ) {
+   Alert alert = new Alert(Alert.AlertType.INFORMATION);
+   alert.setTitle("Information Dialog");
+   alert.setHeaderText("Error");
+   alert.setContentText("The maximum must have a value greater than minimum!");
+   alert.showAndWait();
+   System.out.println("The maximum must have a value greater than minimum!");
+   return false;
+  } else {
+   return true;
+  }
+ }
+    
+
+ public boolean validateInventory() {
+     minCount = Integer.parseInt(minText.getText());
+     maxCount = Integer.parseInt(maxText.getText());
+     inventoryCount = Integer.parseInt(inventoryText.getText());
+     
+  if ((inventoryCount < minCount) || (inventoryCount > maxCount)) {
+   Alert alert = new Alert(Alert.AlertType.INFORMATION);
+   alert.setTitle("Information Dialog");
+   alert.setHeaderText("Error");
+   alert.setContentText("Inventory must be between the minimum or maximum value for that Part!");
+   alert.showAndWait();
+   System.out.println("Inventory must be between the minimum or maximum value for that Part!");
+   return false;
+  } else {
+   return true;
+  }
+ }
     
    @FXML
     private void searchButtonAction(ActionEvent event) throws IOException {
@@ -156,33 +256,86 @@ public class AddProductController implements Initializable {
 
     @FXML
     private void saveButtonAction(ActionEvent event) throws IOException {
-        ArrayList <Part> associatedParts = new ArrayList<>();
-        Part partSel = partTable.getSelectionModel().getSelectedItem();
+    productPrice= Double.parseDouble(priceCostText.getText());
         
-        
-    initInventory.addProduct(new Product( 
-     initInventory.getProducts().size() + 1,
+    int lastRow=initInventory.getProducts().size()-1;
+    int productID;
+    try {
+    productID=initInventory.getProducts().get(lastRow).getProductID()+1; }
+    catch (ArrayIndexOutOfBoundsException e){
+    productID=1;
+    }
+    
+    Product newProduct = new Product( 
+     productID,
      nameText.getText(),
      Double.parseDouble(priceCostText.getText()),
      Integer.parseInt(inventoryText.getText()),
      Integer.parseInt(minText.getText()),
-     Integer.parseInt(maxText.getText()))
-    );
-  
-    saveButton.getScene().getWindow().hide();
+     Integer.parseInt(maxText.getText()));
+    
+    
+        
+    
+     newProduct.addAssociatedPart(associatedPartList); 
+     
+     
+     if(newProduct.getAssociatedParts().size()==0){
+     Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Information Dialog");
+                alert.setHeaderText("Sorry");
+                alert.setContentText("Please select a part to associate with product in table.");
+                alert.showAndWait();
+     }else if (validateMinMax() && validateInventory() && validateProductName() && validatePrice()&& validateProductPriceVsParts(newProduct)) {
+         
+     initInventory.addProduct(newProduct);
+    
+    
+    saveButton.getScene().getWindow().hide();}
+     System.out.println(newProduct.getAssociatedParts());
    } 
     
+         
     @FXML
     private void addButtonAction(ActionEvent event) throws IOException {
         
-    
-        associatedPartList.add(partTable.getSelectionModel().getSelectedItem());    
+        Part partSel=partTable.getSelectionModel().getSelectedItem();
+        
+        
+        if(partSel==null){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Information Dialog");
+                alert.setHeaderText("Sorry");
+                alert.setContentText("Please select a part to associate with product in table.");
+                alert.showAndWait();
+        }
+        else{
+        associatedPartList.add(partSel);    
    
      associatedPartTable.setItems(associatedPartList);
      
-     
+        }
    } 
+    @FXML
+    private void deleteButtonAction(ActionEvent event) throws IOException {
+        
+        Part partSel=partTable.getSelectionModel().getSelectedItem();
+        
+        
+        if(partSel==null){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Information Dialog");
+                alert.setHeaderText("Sorry");
+                alert.setContentText("Please select a part to remove from the product in table.");
+                alert.showAndWait();
+        }
+        else{
+        associatedPartList.remove(partSel);    
    
+     associatedPartTable.setItems(associatedPartList);
+     
+        }
+   }    
 
     /**
      * Initializes the controller class.
@@ -203,7 +356,11 @@ public class AddProductController implements Initializable {
         partInventoryCol2.setCellValueFactory(new PropertyValueFactory<>("InStock"));
         partPriceCol2.setCellValueFactory(new PropertyValueFactory<>("Price"));
     
-  
+        
+        priceCostText.setText("0");
+        inventoryText.setText("0");
+        minText.setText("0");
+        maxText.setText("0");
     
     
     }

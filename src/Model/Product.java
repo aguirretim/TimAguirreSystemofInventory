@@ -15,6 +15,8 @@ import javafx.collections.ObservableList;
 
 public class Product {
     private ObservableList <Part> associatedParts = FXCollections.observableArrayList();
+
+    
     private int ProductID;
     private String Name;
     private double Price;
@@ -64,10 +66,11 @@ public class Product {
     }
 
 
-    public void addAssociatedPart(Part part) {
+    public void addAssociatedPart(ObservableList <Part>  parts) {
        // associatedParts.add(part);
         // to avoid dup.
-        if(associatedParts.indexOf(part)<0)associatedParts.add(part);
+        //if(associatedParts.indexOf(part)<0)associatedParts.add(part);
+        associatedParts.addAll(parts);
     }
 
     public boolean removeAssociatedPart(int partid) {
@@ -117,6 +120,10 @@ public class Product {
 
     public int getMax() {
         return Max;
+    }
+    
+    public ObservableList<Part> getAssociatedParts() {
+        return associatedParts;
     }
 
     /***********************************

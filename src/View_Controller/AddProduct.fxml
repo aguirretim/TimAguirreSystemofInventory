@@ -23,7 +23,7 @@
       <Label layoutX="180.0" layoutY="297.0" text="Min" />
       <Button fx:id="saveButton" layoutX="467.0" layoutY="415.0" mnemonicParsing="false" onAction="#saveButtonAction" prefHeight="57.0" prefWidth="119.0" text="Save" />
       <TextField disable="true" editable="false" layoutX="152.0" layoutY="143.0" promptText="Auto Gen - Disabled" text="Auto Gen - Disabled" />
-      <TextField fx:id="nameText" layoutX="151.0" layoutY="177.0" />
+      <TextField fx:id="nameText" layoutX="151.0" layoutY="177.0" promptText="Enter Product Name Here" />
       <TextField fx:id="inventoryText" layoutX="151.0" layoutY="215.0" />
       <TextField fx:id="priceCostText" layoutX="151.0" layoutY="250.0" />
       <TextField fx:id="maxText" layoutX="81.0" layoutY="293.0" prefHeight="25.0" prefWidth="83.0" />
@@ -53,7 +53,7 @@
       </TableView>
       <TextField fx:id="partsSearchtext" layoutX="813.0" layoutY="31.0" />
       <Button fx:id="searchButton" layoutX="743.0" layoutY="31.0" mnemonicParsing="false" onAction="#searchButtonAction" text="Search" />
-      <Button fx:id="deleteButton" layoutX="843.0" layoutY="367.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="119.0" text="Delete" />
+      <Button fx:id="deleteButton" layoutX="843.0" layoutY="367.0" mnemonicParsing="false" onAction="#deleteButtonAction" prefHeight="57.0" prefWidth="119.0" text="Delete" />
       <Button fx:id="addButton" layoutX="843.0" layoutY="188.0" mnemonicParsing="false" onAction="#addButtonAction" prefHeight="57.0" prefWidth="119.0" text="Add" />
    </children>
 </AnchorPane>

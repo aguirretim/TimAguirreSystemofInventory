@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -33,7 +35,7 @@ import javafx.stage.Stage;
  * @author Tim
  */
 public class ModifyProductController implements Initializable {
-
+ObservableList< Part> associatedPartList= FXCollections.observableArrayList();
     
     
     @FXML
@@ -57,8 +59,8 @@ public class ModifyProductController implements Initializable {
     
     @FXML
     private TableView< Part> partTable;
-    //@FXML
-    //private TableView < Part > associatedPartTable;
+    @FXML
+    private TableView < Part > associatedPartTable;
     @FXML
     private TableView< Product> productTable;
     @FXML
@@ -151,24 +153,34 @@ public class ModifyProductController implements Initializable {
 
         //Part partSel = partTable.getSelectionModel().getSelectedItem();
         Parent mainWindow = loader.getRoot();
-    
-        initInventory.updateProduct(new Product( 
-     initInventory.getProducts().size() + 1,
+        Product productBeingModified=new Product( 
+     Integer.parseInt(idText.getText()),
      nameText.getText(),
      Double.parseDouble(priceCostText.getText()),
      Integer.parseInt(inventoryText.getText()),
      Integer.parseInt(minText.getText()),
-     Integer.parseInt(maxText.getText())));
+     Integer.parseInt(maxText.getText()));
+        
+        productBeingModified.addAssociatedPart(associatedPartList); 
+        if(productBeingModified.getAssociatedParts().size()==0){
+     Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Information Dialog");
+                alert.setHeaderText("Sorry");
+                alert.setContentText("Please select a part to associate with product in table.");
+                alert.showAndWait();
+     }else{
+                
+        initInventory.updateProduct(productBeingModified);
     saveButton.getScene().getWindow().hide();
         
         
         saveButton.getScene().getWindow().hide();
     }
-    
+    }
     public void transferData(            
              int productID,
             String name, double price, int inStock,
-            int min, int max) {
+            int min, int max, ObservableList <Part> associatedParts) {
         
         idText.setText(String.valueOf(productID));
         idText.setEditable(false);
@@ -176,12 +188,18 @@ public class ModifyProductController implements Initializable {
         inventoryText.setText(String.valueOf(inStock));
         priceCostText.setText(String.valueOf(price));
         maxText.setText(String.valueOf(max));
-        minText.setText(String.valueOf(min));}
+        minText.setText(String.valueOf(min));
+        associatedPartList.setAll(associatedParts);
+        associatedPartTable.setItems(associatedPartList);
+    }
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
+        
+        
         
         // TODO
         
@@ -192,7 +210,10 @@ public class ModifyProductController implements Initializable {
         partInventoryCol.setCellValueFactory(new PropertyValueFactory<>("InStock"));
         partPriceCol.setCellValueFactory(new PropertyValueFactory<>("Price"));
         
-        
+        partIdCol2.setCellValueFactory(new PropertyValueFactory<>("PartID"));
+        partNameCol2.setCellValueFactory(new PropertyValueFactory<>("Name"));
+        partInventoryCol2.setCellValueFactory(new PropertyValueFactory<>("InStock"));
+        partPriceCol2.setCellValueFactory(new PropertyValueFactory<>("Price"));
         
         
         
