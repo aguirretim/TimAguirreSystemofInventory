@@ -361,10 +361,7 @@ ObservableList< Part> associatedPartList= FXCollections.observableArrayList();
         partPriceCol2.setCellValueFactory(new PropertyValueFactory<>("Price"));
         
         
-        priceCostText.setText("0");
-        inventoryText.setText("0");
-        minText.setText("0");
-        maxText.setText("1");
+       
         
     }    
     
