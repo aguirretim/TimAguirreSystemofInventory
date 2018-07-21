@@ -299,6 +299,16 @@ public class Main implements Initializable {
         refreshTable();
 
     }
+    @FXML
+    private void productDelButtonAction(ActionEvent event) throws IOException {
+
+        Product partSel = productTable.getSelectionModel().getSelectedItem();
+        
+        productTable.getItems().remove(partSel);
+        
+        refreshTable();
+
+    }
 
     public void refreshTable() {
         partList = warehouse.getParts();

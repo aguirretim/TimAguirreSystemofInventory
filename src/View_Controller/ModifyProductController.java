@@ -79,6 +79,18 @@ ObservableList< Part> associatedPartList= FXCollections.observableArrayList();
     private TableColumn< Part, Integer> partInventoryCol2;
     @FXML
     private TableColumn< Part, Double> partPriceCol2;
+    @FXML
+    private String productName;
+    @FXML
+    private double productPrice;
+    @FXML
+    private int inventoryCount;
+    @FXML
+    private int minCount;
+    @FXML
+    private int maxCount;
+    @FXML
+    private int partCount;
     
     Inventory initInventory = new Inventory();
     
@@ -87,8 +99,96 @@ ObservableList< Part> associatedPartList= FXCollections.observableArrayList();
     /************************************ 
 //     Changing screens and scenes with buttons.
      *************************************/
+    public boolean validateProductPriceVsParts(Product newProduct) {
+    double totalPartPrice = 0;
+    productPrice= Double.parseDouble(priceCostText.getText());
+    for (int i = 0; i < associatedPartList.size(); i++){
+         totalPartPrice = totalPartPrice + newProduct.getAssociatedParts().get(i).getPrice();
+     priceCostText.setText(""+totalPartPrice);      
+    }
     
+     if (productPrice<totalPartPrice) {
+   Alert alert = new Alert(Alert.AlertType.INFORMATION);
+    alert.setTitle("Information Dialog");
+    alert.setHeaderText("Sorry");
+    alert.setContentText("Product Price Must be greater than "+ totalPartPrice +" Associated Parts Total Price.");
+    System.out.println("Product Price Must be greater than "+totalPartPrice+ " Associated Parts Total Price.");
+    alert.showAndWait();
+    return false;  
+     }
+   else {
+         
+   return true;
+  }
+    }
     
+  
+    public boolean validateProductName() {
+    productName=nameText.getText();
+    if (productName.equals(null)|| productName.isEmpty()) {
+   Alert alert = new Alert(Alert.AlertType.INFORMATION);
+   alert.setTitle("Information Dialog");
+   alert.setHeaderText("Error");
+   alert.setContentText("Please enter a product name");
+   alert.showAndWait();
+   System.out.println("Please enter a product name");
+   return false;
+  } else {
+   return true;
+  }
+    }
+        public boolean validatePrice() {
+    productPrice= Double.parseDouble(priceCostText.getText());
+    if (productPrice<0) {
+   Alert alert = new Alert(Alert.AlertType.INFORMATION);
+   alert.setTitle("Information Dialog");
+   alert.setHeaderText("Error");
+   alert.setContentText("Please enter a product price 0 or greater");
+   alert.showAndWait();
+   System.out.println("Please enter a product price 0 or greater");
+   return false;
+  } else {
+   return true;
+  }
+    }
+    
+     public boolean validateMinMax() {
+  minCount = Integer.parseInt(minText.getText());
+  maxCount = Integer.parseInt(maxText.getText());
+  
+         
+         
+  if (minCount > maxCount ||minCount+maxCount==0 ) {
+   Alert alert = new Alert(Alert.AlertType.INFORMATION);
+   alert.setTitle("Information Dialog");
+   alert.setHeaderText("Error");
+   alert.setContentText("The maximum must have a value greater than minimum!");
+   alert.showAndWait();
+   System.out.println("The maximum must have a value greater than minimum!");
+   return false;
+  } else {
+   return true;
+  }
+ }
+    
+
+ public boolean validateInventory() {
+     minCount = Integer.parseInt(minText.getText());
+     maxCount = Integer.parseInt(maxText.getText());
+     inventoryCount = Integer.parseInt(inventoryText.getText());
+     
+  if ((inventoryCount < minCount) || (inventoryCount > maxCount)) {
+   Alert alert = new Alert(Alert.AlertType.INFORMATION);
+   alert.setTitle("Information Dialog");
+   alert.setHeaderText("Error");
+   alert.setContentText("Inventory must be between the minimum or maximum value for that Part!");
+   alert.showAndWait();
+   System.out.println("Inventory must be between the minimum or maximum value for that Part!");
+   return false;
+  } else {
+   return true;
+  }
+ }
     
       @FXML
     private void searchButtonAction(ActionEvent event) throws IOException {
@@ -144,6 +244,7 @@ ObservableList< Part> associatedPartList= FXCollections.observableArrayList();
     }
     @FXML
     private void saveButtonAction(ActionEvent event) throws IOException {
+    productPrice= Double.parseDouble(priceCostText.getText());
 
         FXMLLoader loader = new FXMLLoader(); //Loads an object hierarchy from an XML document.     
         loader.setLocation(getClass().getResource("/View_Controller/Main.fxml")); //  reference  fxml files like this in my controllers:                 
@@ -168,7 +269,7 @@ ObservableList< Part> associatedPartList= FXCollections.observableArrayList();
                 alert.setHeaderText("Sorry");
                 alert.setContentText("Please select a part to associate with product in table.");
                 alert.showAndWait();
-     }else{
+     }else if (validateMinMax() && validateInventory() && validateProductName() && validatePrice()&& validateProductPriceVsParts(productBeingModified)) {
                 
         initInventory.updateProduct(productBeingModified);
     saveButton.getScene().getWindow().hide();
@@ -177,6 +278,50 @@ ObservableList< Part> associatedPartList= FXCollections.observableArrayList();
         saveButton.getScene().getWindow().hide();
     }
     }
+         
+    @FXML
+    private void addButtonAction(ActionEvent event) throws IOException {
+        
+        Part partSel=partTable.getSelectionModel().getSelectedItem();
+        
+        
+        if(partSel==null){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Information Dialog");
+                alert.setHeaderText("Sorry");
+                alert.setContentText("Please select a part to associate with product in table.");
+                alert.showAndWait();
+    }
+         else{
+        double totalPartPrice = 0;
+        associatedPartList.add(partSel);
+   
+     associatedPartTable.setItems(associatedPartList);
+        for (int i = 0; i < associatedPartList.size(); i++){
+         totalPartPrice = totalPartPrice+ partSel.getPrice();
+    priceCostText.setText(""+totalPartPrice);
+        }
+    }}
+       @FXML
+    private void deleteButtonAction(ActionEvent event) throws IOException {
+        
+        Part partSel=associatedPartTable.getSelectionModel().getSelectedItem();
+        
+        
+        if(partSel==null){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Information Dialog");
+                alert.setHeaderText("Sorry");
+                alert.setContentText("Please select a part to remove from the product in table.");
+                alert.showAndWait();
+        }
+        else{
+        associatedPartList.remove(partSel);    
+   
+     associatedPartTable.setItems(associatedPartList);
+     
+        }
+   }
     public void transferData(            
              int productID,
             String name, double price, int inStock,
@@ -216,6 +361,10 @@ ObservableList< Part> associatedPartList= FXCollections.observableArrayList();
         partPriceCol2.setCellValueFactory(new PropertyValueFactory<>("Price"));
         
         
+        priceCostText.setText("0");
+        inventoryText.setText("0");
+        minText.setText("0");
+        maxText.setText("1");
         
     }    
     

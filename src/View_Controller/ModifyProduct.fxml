@@ -53,7 +53,7 @@
       </TableView>
       <TextField fx:id="partsSearchtext" layoutX="813.0" layoutY="31.0" />
       <Button fx:id="searchButton" layoutX="743.0" layoutY="31.0" mnemonicParsing="false" onAction="#searchButtonAction" text="Search" />
-      <Button fx:id="deleteButton" layoutX="843.0" layoutY="367.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="119.0" text="Delete" />
-      <Button fx:id="addButton" layoutX="843.0" layoutY="188.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="119.0" text="Add" />
+      <Button fx:id="deleteButton" layoutX="843.0" layoutY="367.0" mnemonicParsing="false" onAction="#deleteButtonAction" prefHeight="57.0" prefWidth="119.0" text="Delete" />
+      <Button fx:id="addButton" layoutX="843.0" layoutY="188.0" mnemonicParsing="false" onAction="#addButtonAction" prefHeight="57.0" prefWidth="119.0" text="Add" />
    </children>
 </AnchorPane>

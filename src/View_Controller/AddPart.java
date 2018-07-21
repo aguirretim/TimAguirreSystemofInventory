@@ -74,9 +74,12 @@ public class AddPart implements Initializable {
  private int maxCount;
  @FXML
  private int partCount;
+@FXML
+ private String partName;
+@FXML
+private double partPrice;
 
 
- 
  Inventory initInventory = new Inventory();
 
 
@@ -85,7 +88,48 @@ public class AddPart implements Initializable {
  Changing screens and scenes with buttons.
  ************************************/
 
-
+    public boolean validateParttName() {
+    partName=nameText.getText();
+    if (partName.equals(null)|| partName.isEmpty()) {
+   Alert alert = new Alert(Alert.AlertType.INFORMATION);
+   alert.setTitle("Information Dialog");
+   alert.setHeaderText("Error");
+   alert.setContentText("Please enter a part name");
+   alert.showAndWait();
+   System.out.println("Please enter a part name");
+   return false;
+  } else {
+   return true;
+  }
+    }
+    
+            public boolean validatePrice() {
+   try{
+        Double.parseDouble(pricecostText.getText());
+     partPrice= Double.parseDouble(pricecostText.getText());
+    
+       if (partPrice<0) {
+   Alert alert = new Alert(Alert.AlertType.INFORMATION);
+   alert.setTitle("Information Dialog");
+   alert.setHeaderText("Error");
+   alert.setContentText("Please enter a product price 0 or greater");
+   alert.showAndWait();
+   System.out.println("Please enter a product price 0 or greater");
+   return false;
+  } 
+  else
+       return true;
+   }
+     catch(NumberFormatException e){
+       Alert alert = new Alert(Alert.AlertType.INFORMATION);
+   alert.setTitle("Information Dialog");
+   alert.setHeaderText("Error");
+   alert.setContentText("Please enter a number in the Price field");
+   alert.showAndWait();
+   System.out.println("Please enter a number in the Price field");
+   return false;
+     }
+            }       
 
  public boolean validateMinMax() {
   
@@ -166,7 +210,7 @@ if (result.get() == ButtonType.OK){
        
      
      
-  if (validateMinMax() && validateInventory()) {
+  if (validateMinMax() && validateInventory() && validateParttName()&& validatePrice()) {
 
    if (inHouseButton.isSelected()) {
     initInventory.addPart(new Inhouse(

@@ -116,14 +116,15 @@ public class AddProductController implements Initializable {
     productPrice= Double.parseDouble(priceCostText.getText());
     for (int i = 0; i < associatedPartList.size(); i++){
          totalPartPrice = totalPartPrice + newProduct.getAssociatedParts().get(i).getPrice();
+    priceCostText.setText(""+totalPartPrice);
     }
-
+     
      if (productPrice<totalPartPrice) {
    Alert alert = new Alert(Alert.AlertType.INFORMATION);
     alert.setTitle("Information Dialog");
     alert.setHeaderText("Sorry");
-    alert.setContentText("Product Price Must be greater than Associated Parts Total Price.");
-    System.out.println("Product Price Must be greater than Associated Parts Total Price.");
+    alert.setContentText("Product Price Must be greater than "+ totalPartPrice +" Associated Parts Total Price.");
+    System.out.println("Product Price Must be greater than "+totalPartPrice+ " Associated Parts Total Price.");
     alert.showAndWait();
     return false;
    
@@ -311,9 +312,12 @@ public class AddProductController implements Initializable {
         }
         else{
         associatedPartList.add(partSel);    
-   
+   double totalPartPrice = 0;
      associatedPartTable.setItems(associatedPartList);
-     
+         for (int i = 0; i < associatedPartList.size(); i++){
+         totalPartPrice = totalPartPrice+ partSel.getPrice();
+    priceCostText.setText(""+totalPartPrice);
+    }
         }
    } 
     @FXML
@@ -360,7 +364,7 @@ public class AddProductController implements Initializable {
         priceCostText.setText("0");
         inventoryText.setText("0");
         minText.setText("0");
-        maxText.setText("0");
+        maxText.setText("1");
     
     
     }
