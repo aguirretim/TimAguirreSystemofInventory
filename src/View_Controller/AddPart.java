@@ -73,6 +73,8 @@ public class AddPart implements Initializable {
  @FXML
  private int maxCount;
  @FXML
+ private String machineIdComp;
+ @FXML
  private int partCount;
 @FXML
  private String partName;
@@ -102,6 +104,50 @@ private double partPrice;
    return true;
   }
     }
+    
+        public boolean validateMachineId() {
+    machineIdComp=machineidText.getText();
+    int IdTester;
+    if (machineIdComp.equals(null)|| machineIdComp.isEmpty()) {
+   Alert alert = new Alert(Alert.AlertType.INFORMATION);
+   alert.setTitle("Information Dialog");
+   alert.setHeaderText("Error");
+   alert.setContentText("Please enter a Machine ID");
+   alert.showAndWait();
+   System.out.println("Please enter a Machine ID");
+   return false;
+  } 
+    else
+    {try{Integer.parseInt(machineIdComp);
+   return true;}
+    catch(NumberFormatException e){
+       Alert alert = new Alert(Alert.AlertType.INFORMATION);
+   alert.setTitle("Information Dialog");
+   alert.setHeaderText("Error");
+   alert.setContentText("Please enter a number for Machine ID");
+   alert.showAndWait();
+   System.out.println("Please enter a number for Machine ID");
+   return false;
+    }
+  }
+    }
+     
+        public boolean validateCompany() {
+    machineIdComp=machineidText.getText();
+    if (machineIdComp.equals(null)|| machineIdComp.isEmpty()) {
+   Alert alert = new Alert(Alert.AlertType.INFORMATION);
+   alert.setTitle("Information Dialog");
+   alert.setHeaderText("Error");
+   alert.setContentText("Please enter a Company Name");
+   alert.showAndWait();
+   System.out.println("Please enter a Company Name");
+   return false;
+  } else {
+   return true;
+  }
+    }
+    
+    
     
             public boolean validatePrice() {
    try{
@@ -136,7 +182,7 @@ private double partPrice;
   minCount = Integer.parseInt(minText.getText());
   maxCount = Integer.parseInt(maxText.getText());
   
-  if (Integer.parseInt(minText.getText()) > Integer.parseInt(maxText.getText())) {
+  if (Integer.parseInt(minText.getText()) > Integer.parseInt(maxText.getText())||minCount+maxCount==0) {
    Alert alert = new Alert(Alert.AlertType.INFORMATION);
    alert.setTitle("Information Dialog");
    alert.setHeaderText("Error");
@@ -170,11 +216,16 @@ inventoryCount = Integer.parseInt(invText.getText());
  @FXML
  private void outsourcedButtonAction(ActionEvent event) {
   machCompLbl.setText("Company Name");
+     machineidText.setText("");
+     machineidText.setPromptText("Enter a Company Name");
+
  }
 
  @FXML
  private void inHouseButtonAction(ActionEvent event) {
   machCompLbl.setText("Machine ID");
+  machineidText.setText("0");
+     machineidText.setPromptText("Enter a Machine ID");
  }
 
  @FXML
@@ -212,7 +263,7 @@ if (result.get() == ButtonType.OK){
      
   if (validateMinMax() && validateInventory() && validateParttName()&& validatePrice()) {
 
-   if (inHouseButton.isSelected()) {
+   if (inHouseButton.isSelected()&&validateMachineId()) {
     initInventory.addPart(new Inhouse(
      Integer.parseInt(
       machineidText.getText()),
@@ -223,7 +274,7 @@ if (result.get() == ButtonType.OK){
      Integer.parseInt(minText.getText()),
      Integer.parseInt(maxText.getText())));
     saveButton.getScene().getWindow().hide();
-   } else if (outsourcedRadioButton.isSelected()) {
+   } else if (outsourcedRadioButton.isSelected()&&validateCompany()) {
     initInventory.addPart(new Outsourced(
      machineidText.getText(),
      partID,

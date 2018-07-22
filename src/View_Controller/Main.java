@@ -356,11 +356,11 @@ public class Main implements Initializable {
         
         
         
-        warehouse.addPart(new Inhouse(123, 1, "part1", 4.4, 5,1, 10));
+       /* warehouse.addPart(new Inhouse(123, 1, "part1", 4.4, 5,1, 10));
         warehouse.addPart(new Inhouse(123, 2, "part2", 4.4, 5,1, 10));
         warehouse.addPart(new Outsourced("TimCompany",3, "Frame", 1.50, 40,1, 100));                      
         warehouse.addPart(new Outsourced("BOBCompany",4, "Metalic Screen", .75, 20,1, 100));
-        
+        */
        
         
     }
