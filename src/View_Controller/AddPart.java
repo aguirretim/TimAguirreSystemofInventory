@@ -81,6 +81,7 @@ public class AddPart implements Initializable {
 @FXML
 private double partPrice;
 
+int partID=0;
 
  Inventory initInventory = new Inventory();
 
@@ -247,7 +248,7 @@ if (result.get() == ButtonType.OK){
      
      
 
-  
+  /*
      int lastRow=initInventory.getParts().size()-1; 
      int partID;  
      try {
@@ -255,7 +256,7 @@ if (result.get() == ButtonType.OK){
     catch (ArrayIndexOutOfBoundsException e){
       partID=1;
     
-    }
+    }*/
      
       
        
@@ -299,6 +300,14 @@ if (result.get() == ButtonType.OK){
 
  @Override
  public void initialize(URL url, ResourceBundle rb) {
+     
+         for(int i=0;i< initInventory.getParts().size();i++){
+     if(initInventory.getParts().get(i).getPartID()> partID)
+     
+     partID=initInventory.getParts().get(i).getPartID();
+     }
+      partID+=1;
+     
 
  }
 

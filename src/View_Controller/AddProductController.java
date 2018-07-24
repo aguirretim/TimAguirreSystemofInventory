@@ -103,6 +103,8 @@ public class AddProductController implements Initializable {
     @FXML
     private int partCount;
     
+    int productID=0;
+    
     Inventory initInventory = new Inventory();
      //Inventory initInventory2 = new Inventory();
   //  ArrayList <Part> associatedParts = new ArrayList<>();
@@ -259,13 +261,6 @@ public class AddProductController implements Initializable {
     private void saveButtonAction(ActionEvent event) throws IOException {
     productPrice= Double.parseDouble(priceCostText.getText());
         
-    int lastRow=initInventory.getProducts().size()-1;
-    int productID;
-    try {
-    productID=initInventory.getProducts().get(lastRow).getProductID()+1; }
-    catch (ArrayIndexOutOfBoundsException e){
-    productID=1;
-    }
     
     Product newProduct = new Product( 
      productID,
@@ -347,6 +342,13 @@ public class AddProductController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {    
 
+        
+         for(int i=0;i< initInventory.getProducts().size();i++){
+     if(initInventory.getProducts().get(i).getProductID()> productID)
+     
+     productID=initInventory.getProducts().get(i).getProductID();
+     }
+      productID+=1;
     
         partTable.setItems(initInventory.getParts());
         partIdCol.setCellValueFactory(new PropertyValueFactory<>("PartID"));
